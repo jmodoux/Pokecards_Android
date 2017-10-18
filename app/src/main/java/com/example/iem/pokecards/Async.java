@@ -20,31 +20,28 @@ public class Async extends AsyncTask<Object, Void, String> {
         URL url = null;
         HttpURLConnection urlConnection = null;
         BufferedReader in = null;
-        String heure="3";
+        String heure = "";
         tv = (TextView) params[0];
-        try {
-            url = new URL("https://api.chucknorris.io/jokes/random");
-            urlConnection = (HttpURLConnection) url.openConnection();
-            if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                in = new BufferedReader(
-                        new InputStreamReader(urlConnection.getInputStream(),"UTF-8"));
-                String temp="";
-                while((temp = in.readLine()) != null) {
-                    heure += temp;
-                }
+                try {
+                    url = new URL(params[1].toString());
+                    urlConnection = (HttpURLConnection) url.openConnection();
+                    if (urlConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                        in = new BufferedReader(
+                                new InputStreamReader(urlConnection.getInputStream(), "UTF-8"));
+                        String temp = "";
+                        while ((temp = in.readLine()) != null) {
+                            heure += temp;
+                        }
 //ensuite, on récupère le contenu du flux avec in.readLine(), tant qu’il y a des
 //données dans le flux d’entrée
 
-            }
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        return heure;
-
+                    }
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+return heure;
     }
 
     @Override

@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 TextView test = (TextView) findViewById(R.id.tv);
-                new Async().execute(test);
+                new Async().execute(test, "http://pokecards.local/index.php/pokemon/list");
 
             }
         });
