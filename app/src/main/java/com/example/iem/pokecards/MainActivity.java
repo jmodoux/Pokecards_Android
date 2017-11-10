@@ -1,5 +1,6 @@
 package com.example.iem.pokecards;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ import static android.R.attr.data;
 public class MainActivity extends AppCompatActivity {
     CallbackManager callbackManager;
     LoginButton loginButton;
+    Pokemon p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +47,20 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onActivityResult(int requestCode, int resultCode, Intent data) {
             super.onActivityResult(requestCode, resultCode, data);
-            callbackManager.onActivityResult(requestCode, resultCode, data);
+            try {
+                callbackManager.onActivityResult(requestCode, resultCode, data);
+            }catch (NullPointerException e) {
+                Context context = getApplicationContext();
+                CharSequence text = "La connexion a échoué";
+                int duration = Toast.LENGTH_SHORT;
 
+                Toast toast = Toast.makeText(context, text, duration);
+                toast.show();
+            }
         }
 
 
-   /* protected void connexionFacebook(){
+    protected void connexionFacebook(){
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
 
@@ -78,5 +88,5 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "Error" + exception, Toast.LENGTH_SHORT).show();
                     }
                 });
-    }*/
+    }
 }
