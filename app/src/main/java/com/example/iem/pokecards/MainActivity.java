@@ -30,8 +30,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //connexionFacebook();
-        Button bouton = (Button) findViewById(R.id.bouton);
+        connexionFacebook();
+        Button bouton = (Button) findViewById(R.id.button_Json);
+        Button goToMenu = (Button) findViewById(R.id.button_LogIn);
        /* WebView test2 = (WebView) findViewById(R.id.webView);
         test2.loadUrl("https://api.chucknorris.io/jokes/random");*/
         bouton.setOnClickListener(new View.OnClickListener() {
@@ -39,6 +40,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 TextView test = (TextView) findViewById(R.id.tv);
                 new Async().execute(test, "http://pokecards.local/index.php/pokemon/list");
+
+            }
+        });
+        goToMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, Pokemon_Liste.class);
+                startActivity(intent);
+                //finish(); //A activer plus tard
 
             }
         });

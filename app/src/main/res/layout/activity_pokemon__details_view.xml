@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.iem.pokecards.Pokemon_DetailsView"
+    tools:layout_editor_absoluteY="81dp">
+
+    <Button
+        android:id="@+id/buttonEvolution"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Evoluer"
+        tools:layout_editor_absoluteX="148dp"
+        tools:layout_editor_absoluteY="458dp" />
+
+    <TextView
+        android:id="@+id/textView_Name"
+        android:layout_width="67dp"
+        android:layout_height="25dp"
+        android:text="Name"
+        tools:layout_editor_absoluteX="159dp"
+        tools:layout_editor_absoluteY="165dp" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="195dp"
+        android:layout_height="149dp"
+        app:srcCompat="@mipmap/ic_launcher"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="3dp" />
+
+    <TextView
+        android:id="@+id/textView_ID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="N° Pokedex"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="221dp" />
+
+    <TextView
+        android:id="@+id/textView_NumPokedex"
+        android:layout_width="89dp"
+        android:layout_height="24dp"
+        android:text="1"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="221dp" />
+
+    <TextView
+        android:id="@+id/textView_Generation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Génération"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/textView_Generation_Result"
+        android:layout_width="88dp"
+        android:layout_height="23dp"
+        android:text="1"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/textView_Types"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type"
+        tools:layout_editor_absoluteX="16dp"
+        tools:layout_editor_absoluteY="288dp" />
+
+    <TextView
+        android:id="@+id/textView_Types_Result"
+        android:layout_width="91dp"
+        android:layout_height="21dp"
+        android:text="Normal-Vol"
+        tools:layout_editor_absoluteX="95dp"
+        tools:layout_editor_absoluteY="288dp" />
+
+    <TextView
+        android:id="@+id/textView_Iteration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Itération"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="221dp" />
+
+    <TextView
+        android:id="@+id/textView_Iteration_Result"
+        android:layout_width="78dp"
+        android:layout_height="19dp"
+        android:text="0"
+        tools:layout_editor_absoluteX="295dp"
+        tools:layout_editor_absoluteY="221dp" />
+
+    <TextView
+        android:id="@+id/textView_Height"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Taille"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/textView_Height_Result"
+        android:layout_width="81dp"
+        android:layout_height="19dp"
+        android:text="125cm"
+        tools:layout_editor_absoluteX="295dp"
+        tools:layout_editor_absoluteY="258dp" />
+
+    <TextView
+        android:id="@+id/textView_Weight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Poids"
+        tools:layout_editor_absoluteX="207dp"
+        tools:layout_editor_absoluteY="288dp" />
+
+    <TextView
+        android:id="@+id/textView_Weight_Result"
+        android:layout_width="78dp"
+        android:layout_height="18dp"
+        android:text="0.2 Kg"
+        tools:layout_editor_absoluteX="295dp"
+        tools:layout_editor_absoluteY="288dp" />
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="377dp"
+        android:layout_height="138dp"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="320dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" />
+    </HorizontalScrollView>
+</android.support.constraint.ConstraintLayout>

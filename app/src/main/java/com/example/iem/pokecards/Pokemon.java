@@ -3,6 +3,7 @@ package com.example.iem.pokecards;
 import android.content.ClipData;
 
 import com.google.gson.Gson;
+import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
@@ -10,13 +11,15 @@ import java.util.List;
  * Created by iem on 07/11/2017.
  */
 
-public class Pokemon {
+public final class Pokemon {
     private final Integer id, height, weight, generation;
     private final String name, sprite;
-    private final String[] type, evolution;
+    private final String[] type;
+    private final String[] evolution;
+
 
     private Pokemon(){
-        id=1;
+        id=2;
         height = 20;
         weight= 20;
         generation = 1;
@@ -49,9 +52,45 @@ public class Pokemon {
 
     }
 
+    public Integer getId() {
+        return id;
+    }
 
+    public Integer getHeight() {
+        return height;
+    }
 
+    public Integer getWeight() {
+        return weight;
+    }
 
+    public Integer getGeneration() {
+        return generation;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getSprite() {
+        return sprite;
+    }
+
+    public String[] getType() {
+        return type;
+    }
+
+    public String[] getEvolution() {
+        return evolution;
+    }
+
+    @Override
+    public String toString() {
+        return  "id=" + id +
+                ", weight=" + weight +
+                ", generation=" + generation +
+                ", height=" + height ;
+    }
 }
 
 
