@@ -41,7 +41,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Pokemon_Liste" />
-        <activity android:name=".Pokemon_DetailsView"></activity>
+        <activity android:name=".Pokemon_DetailsView" />
     </application>
 
 </manifest>

@@ -1,15 +1,11 @@
 package com.example.iem.pokecards;
 
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.widget.TextView;
+import android.util.Log;
 
+import com.example.iem.pokecards.Modele.Pokemon;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,35 +16,29 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 public class Async extends AsyncTask<Object, Void, String> {
-    TextView tv;
     private ArrayList<Pokemon> array;
     private MyAdapter adapter;
     @Override
     protected String doInBackground(Object... params) {
-
         array = (ArrayList<Pokemon>) params[0];
         adapter = (MyAdapter) params[1];
-        String jsonRaw = this.jsonCreat((String) params[2]);
+        String jsonRaw = this.jsonCreate((String) params[2]);
+
         array.addAll(this.Gonsreturn(jsonRaw));
-        adapter.listItem=array;
+
 
     return "OK";
 
     }
 
 
-    public Collection<Pokemon> Gonsreturn(String json)
+    public ArrayList<Pokemon> Gonsreturn(String json)
     {
 
-        Type collectionType = new TypeToken<Collection<Pokemon>>() {
-        }.getType();
-        Gson gson = new Gson();
-        ArrayList<Pokemon> toReturn = gson.fromJson(json, collectionType);
-
-        return array;
+        Type collectionType = new TypeToken<Collection<Pokemon>>(){}.getType();
+        return  (ArrayList<Pokemon>) new Gson().fromJson(json, collectionType);
 
     }
 
@@ -57,10 +47,9 @@ public class Async extends AsyncTask<Object, Void, String> {
         super.onPostExecute(s);
         adapter.notifyDataSetChanged();
 
-        //tv.setText(poke.get(0).toString());
     }
 
-    public String jsonCreat(String URL){
+    public String jsonCreate(String URL){
         URL url = null;
         HttpURLConnection urlConnection = null;
         BufferedReader in = null;
@@ -75,8 +64,7 @@ public class Async extends AsyncTask<Object, Void, String> {
                 while ((temp = in.readLine()) != null) {
                     textReturn += temp;
                 }
-
-
+                Log.d("POST",textReturn);
             }
         } catch (MalformedURLException e) {
             e.printStackTrace();

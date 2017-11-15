@@ -8,23 +8,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+
+import com.example.iem.pokecards.Modele.Pokemon;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.zip.Inflater;
 /**
  * Created by iem on 14/11/2017.
  */
@@ -63,20 +53,20 @@ public class MyAdapter extends BaseAdapter {
         LayoutInflater mInflater = LayoutInflater.from(context);
         if (convertView == null) {
             //Initialisation de notre item à partir du  layout XML "personne_layout.xml"
-            layoutItem = (LinearLayout) mInflater.inflate(R.layout.activity_pokemon__liste, parent, false);
+            layoutItem = (LinearLayout) mInflater.inflate(R.layout.listelements, parent, false);
         } else {
             layoutItem = (LinearLayout) convertView;
         }
 
         //(2) : Récupération des TextView de notre layout
-        TextView tv_Titre = (TextView) layoutItem.findViewById(R.id.name);
-        TextView tv_Description = (TextView) layoutItem.findViewById(R.id.description);
+        TextView tv_pokemon_id_name = (TextView) layoutItem.findViewById(R.id.pokemon_id_name);
         ImageView icone = (ImageView) layoutItem.findViewById(R.id.img);
 
+
         //(3) : mise à jour des widgets des elements de l'item
-        tv_Titre.setText(listItem.get(position).getName());
-        tv_Description.setText(listItem.get(position).toString());
-        Picasso.with(context).load(listItem.get(position).getSprite()).into(icone);
+
+        tv_pokemon_id_name.setText(listItem.get(position).getId()+" "+listItem.get(position).getName());
+        Picasso.with(context).load(listItem.get(position).getImage()).into(icone);
 
 
         //(4) Changement de la couleur du fond de notre item
