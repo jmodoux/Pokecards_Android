@@ -32,8 +32,8 @@ public class Async extends AsyncTask<Object, Void, String> {
         array = (ArrayList<Pokemon>) params[0];
         adapter = (MyAdapter) params[1];
         String jsonRaw = this.jsonCreat((String) params[2]);
-
         array.addAll(this.Gonsreturn(jsonRaw));
+        adapter.listItem=array;
 
     return "OK";
 
@@ -56,8 +56,6 @@ public class Async extends AsyncTask<Object, Void, String> {
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
         adapter.notifyDataSetChanged();
-
-       // Pokemon poke = gson.fromJson(s, Pokemon.class);
 
         //tv.setText(poke.get(0).toString());
     }

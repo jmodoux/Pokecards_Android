@@ -20,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.zip.Inflater;
@@ -29,11 +31,11 @@ import java.util.zip.Inflater;
 
 public class MyAdapter extends BaseAdapter {
 
-    ArrayList<HashMap<String, String>> listItem;
+    ArrayList<Pokemon> listItem= new ArrayList<Pokemon>();
     Context context;
     LinearLayout layoutItem;
 
-    public MyAdapter(ArrayList<HashMap<String, String>> listItem, Context context) {
+    public MyAdapter(ArrayList<Pokemon> listItem, Context context) {
         this.listItem = listItem;
         this.context = context;
     }
@@ -72,11 +74,9 @@ public class MyAdapter extends BaseAdapter {
         ImageView icone = (ImageView) layoutItem.findViewById(R.id.img);
 
         //(3) : mise à jour des widgets des elements de l'item
-        tv_Titre.setText(listItem.get(position).get("titre"));
-        tv_Description.setText(listItem.get(position).get("description"));
-
-        int imageId = context.getResources().getIdentifier(listItem.get(position).get("img"),"drawable","com.tpandroid.lbuathier.listviewcustom");
-        icone.setImageResource(imageId);
+        tv_Titre.setText(listItem.get(position).getName());
+        tv_Description.setText(listItem.get(position).toString());
+        Picasso.with(context).load(listItem.get(position).getSprite()).into(icone);
 
 
         //(4) Changement de la couleur du fond de notre item
