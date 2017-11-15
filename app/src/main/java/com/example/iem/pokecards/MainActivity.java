@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Pokemon_Liste.class);
                 startActivity(intent);
-                //finish(); //A activer plus tard
+                finish(); //A activer plus tard
 
             }
         });

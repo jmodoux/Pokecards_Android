@@ -5,6 +5,7 @@ import android.content.ClipData;
 import com.google.gson.Gson;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  * Created by iem on 07/11/2017.
  */
 
-public final class Pokemon {
+public final class Pokemon implements Serializable {
     private final int id, generation;
     private final Double  height, weight;
     private final String name, image;

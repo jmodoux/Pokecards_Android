@@ -1,6 +1,7 @@
 package com.example.iem.pokecards;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -39,9 +40,11 @@ public class Pokemon_Liste extends AppCompatActivity {
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 //on récupère la HashMap contenant les infos de notre item (titre, description, img)
-                Pokemon map = (Pokemon) maListViewPerso.getItemAtPosition(position);
-
+                Pokemon selectedPoke = (Pokemon) maListViewPerso.getItemAtPosition(position);
                 Context context = getApplicationContext();
+                Intent intent = new Intent(Pokemon_Liste.this, Pokemon_DetailsView.class);
+                intent.putExtra("Pokemon", selectedPoke);
+                startActivity(intent);
 
             }
         });
