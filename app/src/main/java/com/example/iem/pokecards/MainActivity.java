@@ -4,20 +4,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.iem.pokecards.Modele.Pokemon;
+import com.example.iem.pokecards.Modele.User;
+import com.facebook.AccessToken;
+import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.Profile;
+import com.facebook.ProfileManager;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
     CallbackManager callbackManager;
@@ -29,24 +40,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         connexionFacebook();
-        Button bouton = (Button) findViewById(R.id.button_Json);
         Button goToMenu = (Button) findViewById(R.id.button_LogIn);
-       /* WebView test2 = (WebView) findViewById(R.id.webView);
-        test2.loadUrl("https://api.chucknorris.io/jokes/random");*/
-        bouton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                TextView test = (TextView) findViewById(R.id.tv);
-                new Async().execute(test, "http://pokecards.local/index.php/pokemon/list");
-
-            }
-        });
         goToMenu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, Pokemon_Liste.class);
                 startActivity(intent);
-                finish(); //A activer plus tard
+                //finish(); //A activer plus tard
 
             }
         });
@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-
     protected void connexionFacebook(){
         callbackManager = CallbackManager.Factory.create();
         setContentView(R.layout.activity_main);
@@ -82,8 +81,29 @@ public class MainActivity extends AppCompatActivity {
                 new FacebookCallback<LoginResult>() {
                     @Override
                     public void onSuccess(LoginResult loginResult) {
-                        Toast.makeText(MainActivity.this, "Succès", Toast.LENGTH_SHORT).show();
+                        GraphRequest grequest = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                                new GraphRequest.GraphJSONObjectCallback() {
+                                    @Override
+                                    public void onCompleted(JSONObject object, GraphResponse response) {
+                                        //ton code ici
+                                        Singleton singleton = Singleton.getInstance();
+                                        try {
+                                            Log.d("POST",object.get("name").toString() );
+                                            singleton.setUser(new User(object.get("name").toString(),AccessToken.getCurrentAccessToken().getUserId()));
+                                            Toast.makeText(MainActivity.this, "Hello " + Singleton.getInstance().getUser().getName() + " " + singleton.getUser().getFacebookToken(), Toast.LENGTH_SHORT).show();
 
+                                        } catch (JSONException e) {
+                                            e.printStackTrace();
+                                        }
+
+                                    }
+                                });
+                        Bundle permission_param = new Bundle();
+                        permission_param.putString("fields", "id, name, email, picture.width(120).height(120)");
+                        grequest.setParameters(permission_param);
+                        grequest.executeAsync();
+                        Intent intent = new Intent(MainActivity.this, Pokemon_Liste.class);
+                        startActivity(intent);
                     }
 
                     @Override
@@ -97,4 +117,5 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
 }

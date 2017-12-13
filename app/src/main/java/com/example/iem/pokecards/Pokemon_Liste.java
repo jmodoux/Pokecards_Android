@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.iem.pokecards.Manager.ManagerWS;
 import com.example.iem.pokecards.Modele.Pokemon;
 
 import java.util.ArrayList;
@@ -25,13 +26,12 @@ public class Pokemon_Liste extends AppCompatActivity {
         listItem = new ArrayList<Pokemon>();
 
         mSchedule = new MyAdapter (listItem,this.getBaseContext());
-        //On attribut à notre listView l'adapter que l'on vient de créer
         maListViewPerso.setAdapter(mSchedule);
 
-        ArrayList<Pokemon> poke= new ArrayList<Pokemon>();
-        new Async().execute( listItem, mSchedule, "http://pokecards.local/index.php/pokemon/list");
+        //new Async().execute( listItem, mSchedule, "http://pokecards.local/index.php/pokemon/list");
 
-
+        ManagerWS mws = new ManagerWS(listItem, mSchedule);
+        mws.getAll();
 
 
         //Enfin on met un écouteur d'évènement sur notre listView

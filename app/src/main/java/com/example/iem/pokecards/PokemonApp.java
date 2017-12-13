@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by iem on 15/11/2017.
  */
-
+//android:name=".PokemonApp"
 public class PokemonApp extends Application {
 
     private  static ServicePokemon pokemonService;
@@ -23,7 +23,7 @@ public class PokemonApp extends Application {
         super.onCreate();
         Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
-                        .baseUrl("")
+                        .baseUrl("http://pokecards.local/index.php/pokemon/")
                         .addConverterFactory(GsonConverterFactory.create());
 
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();

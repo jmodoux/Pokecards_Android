@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 public final class Pokemon implements Serializable {
-    private final int id, generation;
+    private final Integer id, generation, iteration;
     private final Double  height, weight;
     private final String name, image;
     private final ArrayList<String> type;
@@ -31,9 +31,10 @@ public final class Pokemon implements Serializable {
         type = new ArrayList<String>();
         evolution = new ArrayList<Integer>();
         evolution.add(2);
+        iteration=0;
     }
 
-    public Pokemon(int id, Double height, Double weight, int generation, String name, String image, ArrayList<String> type, ArrayList<Integer> evolution){
+    public Pokemon(Integer id, Double height, Double weight, Integer generation, String name, String image, ArrayList<String> type, ArrayList<Integer> evolution, Integer iteration){
         this.id=id;
         this.height=height;
         this.weight=weight;
@@ -42,9 +43,10 @@ public final class Pokemon implements Serializable {
         this.image=image;
         this.type = type;
         this.evolution = evolution;
+        this.iteration=iteration;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -56,7 +58,7 @@ public final class Pokemon implements Serializable {
         return weight;
     }
 
-    public int getGeneration() {
+    public Integer getGeneration() {
         return generation;
     }
 
@@ -75,6 +77,8 @@ public final class Pokemon implements Serializable {
     public ArrayList<Integer> getEvolution() {
         return evolution;
     }
+
+    public Integer getIteration(){return iteration;}
 
     @Override
     public String toString() {
