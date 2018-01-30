@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -30,12 +31,16 @@ public class Pokemon_Liste extends AppCompatActivity {
         maListViewPerso.setAdapter(mSchedule);
 
         //new Async().execute( listItem, mSchedule, "http://pokecards.local/index.php/pokemon/list");
-
+        Bundle bundle = getIntent().getExtras();
         ManagerWS mws = new ManagerWS(listItem, mSchedule);
-        //mws.getAll();
+        if(bundle.getString("Request").equals("all")){
+            Log.d("ddd", "JE SUIS UN ANE DE LA TERRE DU MILIEU");
+            mws.getAll();
+        }else{
+            mws.getPokemonListByUser(Singleton.getInstance().getUser().getFacebookToken());
+        }
 
-        //mws.getPokemonListByUser(Singleton.getInstance().getUser().getFacebookToken());
-        mws.getAll();
+
         maListViewPerso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             @SuppressWarnings("unchecked")

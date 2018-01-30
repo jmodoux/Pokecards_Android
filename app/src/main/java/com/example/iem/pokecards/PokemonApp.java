@@ -3,6 +3,7 @@ package com.example.iem.pokecards;
 import android.app.Application;
 
 import com.example.iem.pokecards.manager.ServicePokemon;
+import com.twitter.sdk.android.core.Twitter;
 
 import java.util.concurrent.TimeUnit;
 
@@ -22,6 +23,7 @@ public class PokemonApp extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Twitter.initialize(this);
         Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
                         .baseUrl("http://pokecards.local/index.php/")

@@ -43,6 +43,8 @@
         </activity>
         <activity android:name=".view.Pokemon_Liste" />
         <activity android:name=".view.Pokemon_DetailsView" />
+        <activity android:name=".view.MenuActivity" />
+        <activity android:name=".view.Activity_tweet"></activity>
     </application>
 
 </manifest>

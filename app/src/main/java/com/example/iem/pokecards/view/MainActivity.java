@@ -90,7 +90,7 @@ public class MainActivity extends AppCompatActivity {
                                             singleton.setUser(new User(object.get("name").toString(), AccessToken.getCurrentAccessToken().getUserId(), object.get("email").toString()));
                                             Toast.makeText(MainActivity.this, "Hello " + Singleton.getInstance().getUser().getName() + " " + singleton.getUser().getFacebookToken(), Toast.LENGTH_SHORT).show();
 
-                                            Intent intent = new Intent(MainActivity.this, Pokemon_Liste.class);
+                                            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
                                             startActivity(intent);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
