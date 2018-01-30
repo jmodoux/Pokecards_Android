@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,8 +41,8 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".Pokemon_Liste" />
-        <activity android:name=".Pokemon_DetailsView" />
+        <activity android:name=".view.Pokemon_Liste" />
+        <activity android:name=".view.Pokemon_DetailsView" />
     </application>
 
 </manifest>

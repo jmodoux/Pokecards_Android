@@ -1,4 +1,4 @@
-package com.example.iem.pokecards;
+package com.example.iem.pokecards.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,10 +8,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.iem.pokecards.Modele.Pokemon;
+import com.example.iem.pokecards.R;
+import com.example.iem.pokecards.modele.Pokemon;
 import com.squareup.picasso.Picasso;
-
-import java.util.ArrayList;
 
 public class
 Pokemon_DetailsView extends AppCompatActivity {

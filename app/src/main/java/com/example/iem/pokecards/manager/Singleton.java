@@ -1,20 +1,19 @@
-package com.example.iem.pokecards;
+package com.example.iem.pokecards.manager;
 
-import com.example.iem.pokecards.Manager.ManagerWS;
-import com.example.iem.pokecards.Modele.User;
+import com.example.iem.pokecards.modele.User;
 
 /**
  * Created by iem on 15/11/2017.
  */
 
-class Singleton {
+public class Singleton {
     private ManagerWS managerWS;
     private User user;
 
 
     private static final Singleton ourInstance = new Singleton();
 
-    static Singleton getInstance() {
+    public static Singleton getInstance() {
         return ourInstance;
     }
 

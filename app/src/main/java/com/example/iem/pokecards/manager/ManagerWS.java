@@ -1,11 +1,9 @@
-package com.example.iem.pokecards.Manager;
+package com.example.iem.pokecards.manager;
 
-import android.app.Application;
 import android.util.Log;
 
-import com.example.iem.pokecards.Modele.Pokemon;
-import com.example.iem.pokecards.Modele.User;
-import com.example.iem.pokecards.MyAdapter;
+import com.example.iem.pokecards.modele.Pokemon;
+import com.example.iem.pokecards.view.MyAdapter;
 import com.example.iem.pokecards.PokemonApp;
 
 import java.util.ArrayList;
@@ -52,8 +50,25 @@ public class ManagerWS{
     }
 
 
-    public void getPokemonListByUser(int id){
-        Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().getListPokemonByuser(id);
+    public void getPokemonListByUser(String token){
+        Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().getListPokemonByuser(token);
+        call.enqueue(new Callback<ArrayList<Pokemon>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Pokemon>> call, Response<ArrayList<Pokemon>> response) {
+                pokemonList.addAll(response.body());
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Pokemon>> call, Throwable t) {
+                Log.d("Error", "Fail");
+            }
+        });
+
+    }
+
+    public void userConnexion(String token){
+        Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().getListPokemonByuser(token);
         call.enqueue(new Callback<ArrayList<Pokemon>>() {
             @Override
             public void onResponse(Call<ArrayList<Pokemon>> call, Response<ArrayList<Pokemon>> response) {

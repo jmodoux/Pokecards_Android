@@ -1,4 +1,4 @@
-package com.example.iem.pokecards.Modele;
+package com.example.iem.pokecards.modele;
 
 import java.util.ArrayList;
 
@@ -29,9 +29,9 @@ public class User {
         this.email=email;
     }
 
-    public User(String name, String id, String email) {
+    public User(String name, String facebookToken, String email) {
         this.name = name;
-        this.facebookToken = id;
+        this.facebookToken = facebookToken;
         pokemonList = new ArrayList<Pokemon>();
         this.email = email;
         jetons = 5;

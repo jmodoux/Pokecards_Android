@@ -2,11 +2,12 @@ package com.example.iem.pokecards;
 
 import android.app.Application;
 
-import com.example.iem.pokecards.Manager.ServicePokemon;
+import com.example.iem.pokecards.manager.ServicePokemon;
 
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,18 +24,18 @@ public class PokemonApp extends Application {
         super.onCreate();
         Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
-                        .baseUrl("http://pokecards.local/index.php/pokemon/")
+                        .baseUrl("http://pokecards.local/index.php/")
                         .addConverterFactory(GsonConverterFactory.create());
 
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();
 
         // log
-        if (BuildConfig.DEBUG) {
-            //  HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
+       // if (BuildConfig.DEBUG) {
+              HttpLoggingInterceptor logging = new HttpLoggingInterceptor();
             // set your desired log level
-            //logging.setLevel(HttpLoggingInterceptor.Level.BODY);
-            //okBuilder.addInterceptor(logging);
-        }
+            logging.setLevel(HttpLoggingInterceptor.Level.BODY);
+            okBuilder.addInterceptor(logging);
+        //}
         okBuilder.readTimeout(1, TimeUnit.MINUTES);
 
         OkHttpClient httpClient = okBuilder.build();

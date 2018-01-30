@@ -1,4 +1,4 @@
-package com.example.iem.pokecards;
+package com.example.iem.pokecards.view;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,21 +7,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.iem.pokecards.Modele.Pokemon;
-import com.example.iem.pokecards.Modele.User;
+import com.example.iem.pokecards.R;
+import com.example.iem.pokecards.manager.Singleton;
+import com.example.iem.pokecards.modele.Pokemon;
+import com.example.iem.pokecards.modele.User;
 import com.facebook.AccessToken;
-import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
-import com.facebook.Profile;
-import com.facebook.ProfileManager;
 import com.facebook.appevents.AppEventsLogger;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
@@ -88,10 +86,12 @@ public class MainActivity extends AppCompatActivity {
                                         //ton code ici
                                         Singleton singleton = Singleton.getInstance();
                                         try {
-                                            Log.d("POST",object.get("name").toString() );
-                                            singleton.setUser(new User(object.get("name").toString(),AccessToken.getCurrentAccessToken().getUserId()));
+                                            Log.d("POST",object.get("name").toString() + " " + AccessToken.getCurrentAccessToken().getUserId() );
+                                            singleton.setUser(new User(object.get("name").toString(), AccessToken.getCurrentAccessToken().getUserId(), object.get("email").toString()));
                                             Toast.makeText(MainActivity.this, "Hello " + Singleton.getInstance().getUser().getName() + " " + singleton.getUser().getFacebookToken(), Toast.LENGTH_SHORT).show();
 
+                                            Intent intent = new Intent(MainActivity.this, Pokemon_Liste.class);
+                                            startActivity(intent);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }
@@ -102,8 +102,6 @@ public class MainActivity extends AppCompatActivity {
                         permission_param.putString("fields", "id, name, email, picture.width(120).height(120)");
                         grequest.setParameters(permission_param);
                         grequest.executeAsync();
-                        Intent intent = new Intent(MainActivity.this, Pokemon_Liste.class);
-                        startActivity(intent);
                     }
 
                     @Override

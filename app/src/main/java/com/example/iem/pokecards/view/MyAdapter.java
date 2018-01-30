@@ -1,4 +1,4 @@
-package com.example.iem.pokecards;
+package com.example.iem.pokecards.view;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,7 +12,8 @@ import java.util.ArrayList;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
-import com.example.iem.pokecards.Modele.Pokemon;
+import com.example.iem.pokecards.R;
+import com.example.iem.pokecards.modele.Pokemon;
 import com.squareup.picasso.Picasso;
 
 /**

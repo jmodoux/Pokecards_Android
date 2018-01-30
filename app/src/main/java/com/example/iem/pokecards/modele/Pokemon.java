@@ -1,13 +1,7 @@
-package com.example.iem.pokecards.Modele;
-
-import android.content.ClipData;
-
-import com.google.gson.Gson;
-import com.google.gson.annotations.SerializedName;
+package com.example.iem.pokecards.modele;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by iem on 07/11/2017.

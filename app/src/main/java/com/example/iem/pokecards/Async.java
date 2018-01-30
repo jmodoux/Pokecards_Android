@@ -3,7 +3,8 @@ package com.example.iem.pokecards;
 import android.os.AsyncTask;
 import android.util.Log;
 
-import com.example.iem.pokecards.Modele.Pokemon;
+import com.example.iem.pokecards.modele.Pokemon;
+import com.example.iem.pokecards.view.MyAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
