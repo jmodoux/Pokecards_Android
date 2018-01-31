@@ -22,6 +22,14 @@ public class Singleton {
         user = new User();
     }
 
+    public ManagerWS getManagerWS() {
+        return managerWS;
+    }
+
+    public void setManagerWS(ManagerWS managerWS) {
+        this.managerWS = managerWS;
+    }
+
     public void setUser(User u){user = u;}
 
     public User getUser(){return user;}

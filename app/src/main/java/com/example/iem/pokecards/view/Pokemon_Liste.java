@@ -37,7 +37,7 @@ public class Pokemon_Liste extends AppCompatActivity {
             Log.d("ddd", "JE SUIS UN ANE DE LA TERRE DU MILIEU");
             mws.getAll();
         }else{
-            mws.getPokemonListByUser(Singleton.getInstance().getUser().getFacebookToken());
+            mws.getPokemonListByUser(Singleton.getInstance().getUser().getToken_facebook());
         }
 
 

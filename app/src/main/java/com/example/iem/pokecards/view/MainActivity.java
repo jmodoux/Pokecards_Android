@@ -12,7 +12,6 @@ import android.widget.Toast;
 import com.example.iem.pokecards.R;
 import com.example.iem.pokecards.manager.Singleton;
 import com.example.iem.pokecards.modele.Pokemon;
-import com.example.iem.pokecards.modele.User;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -38,16 +37,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         connexionFacebook();
-        Button goToMenu = (Button) findViewById(R.id.button_LogIn);
-        goToMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Pokemon_Liste.class);
-                startActivity(intent);
-                //finish(); //A activer plus tard
-
-            }
-        });
     }
 
         @Override
@@ -87,11 +76,10 @@ public class MainActivity extends AppCompatActivity {
                                         Singleton singleton = Singleton.getInstance();
                                         try {
                                             Log.d("POST",object.get("name").toString() + " " + AccessToken.getCurrentAccessToken().getUserId() );
-                                            singleton.setUser(new User(object.get("name").toString(), AccessToken.getCurrentAccessToken().getUserId(), object.get("email").toString()));
-                                            Toast.makeText(MainActivity.this, "Hello " + Singleton.getInstance().getUser().getName() + " " + singleton.getUser().getFacebookToken(), Toast.LENGTH_SHORT).show();
+                                            //singleton.setUser(new User(object.get("name").toString(), AccessToken.getCurrentAccessToken().getUserId()));
+                                            //Toast.makeText(MainActivity.this, "Hello " + Singleton.getInstance().getUser().getUsername() + " " + singleton.getUser().getToken_facebook(), Toast.LENGTH_SHORT).show();
+                                            singleton.getManagerWS().userConnexion(AccessToken.getCurrentAccessToken().getUserId(),object.get("name").toString(), MainActivity.this);
 
-                                            Intent intent = new Intent(MainActivity.this, MenuActivity.class);
-                                            startActivity(intent);
                                         } catch (JSONException e) {
                                             e.printStackTrace();
                                         }

@@ -8,46 +8,43 @@ import java.util.ArrayList;
 
 
 public class User {
-    String  name, email, facebookToken;
-    int jetons;
+    String username, token_facebook;
+    int coins;
     ArrayList<Pokemon> pokemonList;
 
 
     public User() {
-        name = "John Smith";
-        jetons = 1;
-        facebookToken = "1";
+        username = "John Smith";
+        coins = 1;
+        token_facebook = "1";
         pokemonList = new ArrayList<Pokemon>();
-        email= "bla@yahoo.com";
     }
 
-    public User(String name, String email, int jetons, String facebookToken, ArrayList<Pokemon> pokemonList) {
-        this.name = name;
-        this.jetons = jetons;
-        this.facebookToken = facebookToken;
+    public User(String username, int coins, String token_facebook, ArrayList<Pokemon> pokemonList) {
+        this.username = username;
+        this.coins = coins;
+        this.token_facebook = token_facebook;
         this.pokemonList = pokemonList;
-        this.email=email;
     }
 
-    public User(String name, String facebookToken, String email) {
-        this.name = name;
-        this.facebookToken = facebookToken;
+    public User(String username, int coins, String token_facebook) {
+        this.username = username;
+        this.token_facebook = token_facebook;
         pokemonList = new ArrayList<Pokemon>();
-        this.email = email;
-        jetons = 5;
+        this.coins = coins;
     }
 
-    public String getName() {
-        return name;
+    public String getUsername() {
+        return username;
     }
 
 
-    public int getJetons() {
-        return jetons;
+    public int getCoins() {
+        return coins;
     }
 
-    public String getFacebookToken() {
-        return facebookToken;
+    public String getToken_facebook() {
+        return token_facebook;
     }
 
     public ArrayList<Pokemon> getPokemonList() {
