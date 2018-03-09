@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.iem.pokecards.view.Pokemon_Boosters">
+
+    <TextView
+        android:id="@+id/textViewCentral"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Utilisez vos jetons pour acheter des boosters comprenant 5 pokémons !"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="30dp"/>
+
+    <Spinner
+        android:id="@+id/spinnerGen"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/buttonSpinnerGen"
+        app:layout_constraintTop_toBottomOf="@id/textViewCentral"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="20dp"/>
+
+    <Button
+        android:id="@+id/buttonSpinnerGen"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:text="Acheter"
+        android:textSize="20px"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/spinnerGen"
+        android:layout_marginEnd="20dp"/>
+
+
+    <ListView
+        android:id="@+id/listView2"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerGen"
+        android:layout_marginTop="20dp"/>
+
+</android.support.constraint.ConstraintLayout>
