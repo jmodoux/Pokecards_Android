@@ -19,6 +19,7 @@ public class PokemonExchangeMenu extends AppCompatActivity {
         buttonGoToExchange = (Button) findViewById(R.id.buttonGoToExchange);
         buttonNewExchange = (Button) findViewById(R.id.buttonNewExchange);
 
+
     }
 
     private void init(){
