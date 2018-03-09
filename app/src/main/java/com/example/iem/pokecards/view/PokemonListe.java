@@ -16,13 +16,13 @@ import com.example.iem.pokecards.modele.Pokemon;
 
 import java.util.ArrayList;
 
-public class Pokemon_Liste extends AppCompatActivity {
+public class PokemonListe extends AppCompatActivity {
     ArrayList<Pokemon> listItem;
     MyAdapter mSchedule;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokemon__liste);
+        setContentView(R.layout.activity_pokemon_liste);
         final ListView maListViewPerso = (ListView) findViewById(R.id.listView);
         final Context context = this;
         listItem = new ArrayList<Pokemon>();
@@ -47,7 +47,7 @@ public class Pokemon_Liste extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Pokemon selectedPoke = (Pokemon) maListViewPerso.getItemAtPosition(position);
                 Context context = getApplicationContext();
-                Intent intent = new Intent(Pokemon_Liste.this, Pokemon_DetailsView.class);
+                Intent intent = new Intent(PokemonListe.this, PokemonDetailsView.class);
                 intent.putExtra("Pokemon", selectedPoke);
                 startActivity(intent);
 

@@ -78,6 +78,23 @@ public class ManagerWS{
 
     }
 
+    public void openBooster(int gen){
+        Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().buyBooster(gen, Singleton.getInstance().getUser().getToken_facebook());
+        call.enqueue(new Callback<ArrayList<Pokemon>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Pokemon>> call, Response<ArrayList<Pokemon>> response) {
+                pokemonList.addAll(response.body());
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Pokemon>> call, Throwable t) {
+                Log.d("Error", "Fail");
+            }
+        });
+
+    }
+
     public void userConnexion(final String token, final String name, final Activity context){
         final Singleton singleton = Singleton.getInstance();
         Call<User> call = PokemonApp.getPokemonService().userConnexion(token);
@@ -123,10 +140,4 @@ public class ManagerWS{
         });
     }
 
-    public boolean IsNewUser() {
-        return isNewUser;
-    }
-    public void setIsNewUser(boolean isNewUser) {
-         this.isNewUser = isNewUser;
-    }
 }

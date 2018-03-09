@@ -26,16 +26,14 @@ public class Async extends AsyncTask<Object, Void, String> {
         array = (ArrayList<Pokemon>) params[0];
         adapter = (MyAdapter) params[1];
         String jsonRaw = this.jsonCreate((String) params[2]);
-
-        array.addAll(this.Gonsreturn(jsonRaw));
-
+        array.addAll(this.Gsonreturn(jsonRaw));
 
     return "OK";
 
     }
 
 
-    public ArrayList<Pokemon> Gonsreturn(String json)
+    public ArrayList<Pokemon> Gsonreturn(String json)
     {
 
         Type collectionType = new TypeToken<Collection<Pokemon>>(){}.getType();

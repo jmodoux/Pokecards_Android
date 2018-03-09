@@ -20,7 +20,7 @@ import com.example.iem.pokecards.modele.Pokemon;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Pokemon_Boosters extends AppCompatActivity {
+public class PokemonBoosters extends AppCompatActivity {
     private Spinner spinnerGen;
     private Button buttonSpinner;
     ArrayList<Pokemon> listItem;
@@ -28,7 +28,7 @@ public class Pokemon_Boosters extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokemon__boosters);
+        setContentView(R.layout.activity_pokemon_boosters);
 
         spinnerGen = (Spinner) findViewById(R.id.spinnerGen);
         buttonSpinner = (Button) findViewById(R.id.buttonSpinnerGen);
@@ -71,7 +71,7 @@ public class Pokemon_Boosters extends AppCompatActivity {
         buttonSpinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mws.openBooster(selectedGen);
+                //mws.openBooster(selectedGen);
 
                 Singleton.getInstance().getUser().setCoins(Singleton.getInstance().getUser().getCoins()-1);
                 dialog.show();
@@ -85,7 +85,7 @@ public class Pokemon_Boosters extends AppCompatActivity {
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Pokemon selectedPoke = (Pokemon) maListViewPerso.getItemAtPosition(position);
                 Context context = getApplicationContext();
-                Intent intent = new Intent(Pokemon_Boosters.this, Pokemon_DetailsView.class);
+                Intent intent = new Intent(PokemonBoosters.this, PokemonDetailsView.class);
                 intent.putExtra("Pokemon", selectedPoke);
                 startActivity(intent);
 

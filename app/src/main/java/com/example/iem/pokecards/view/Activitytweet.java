@@ -12,7 +12,7 @@ import com.twitter.sdk.android.core.models.Tweet;
 import com.twitter.sdk.android.tweetui.TweetUtils;
 import com.twitter.sdk.android.tweetui.TweetView;
 
-public class Activity_tweet extends AppCompatActivity {
+public class Activitytweet extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

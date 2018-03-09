@@ -18,13 +18,18 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         Button allPoke = (Button) findViewById(R.id.buttonAllPokemon);
         Button userPoke = (Button) findViewById(R.id.buttonUserList);
+        Button boosterPage = (Button) findViewById(R.id.buttonBooster);
+        Button exchangeButton = (Button) findViewById(R.id.buttonEchange);
         TextView userName =(TextView) findViewById(R.id.textViewName);
+        TextView numberOfCoins =(TextView) findViewById(R.id.textViewNumberofCoins);
+
 
         userName.setText(Singleton.getInstance().getUser().getUsername());
+        numberOfCoins.setText(String.valueOf(Singleton.getInstance().getUser().getCoins()));
         allPoke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, Pokemon_Liste.class);
+                Intent intent = new Intent(MenuActivity.this, PokemonListe.class);
                 intent.putExtra("Request", "all");
                 startActivity(intent);
                 //finish(); //A activer plus tard
@@ -35,11 +40,29 @@ public class MenuActivity extends AppCompatActivity {
         userPoke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, Pokemon_Liste.class);
+                Intent intent = new Intent(MenuActivity.this, PokemonListe.class);
                 intent.putExtra("Request", "user");
                 startActivity(intent);
                 //finish(); //A activer plus tard
 
+            }
+        });
+
+        boosterPage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, PokemonBoosters.class);
+                startActivity(intent);
+                //finish(); //A activer plus tard
+            }
+        });
+
+        exchangeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MenuActivity.this, PokemonExchangeMenu.class);
+                startActivity(intent);
+                //finish(); //A activer plus tard
             }
         });
     }

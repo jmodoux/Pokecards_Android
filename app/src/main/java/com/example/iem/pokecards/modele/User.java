@@ -43,6 +43,10 @@ public class User {
         return coins;
     }
 
+    public void setCoins(int coins) {
+        this.coins = coins;
+    }
+
     public String getToken_facebook() {
         return token_facebook;
     }

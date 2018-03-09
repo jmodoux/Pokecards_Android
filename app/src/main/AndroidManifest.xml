@@ -12,14 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".view.MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+        <!--<activity android:name=".view.MainActivity">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".Async" />
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
 
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
@@ -41,10 +40,23 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.Pokemon_Liste" />
-        <activity android:name=".view.Pokemon_DetailsView" />
+        <activity android:name=".view.SplashScreen">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
+        <activity android:name=".view.MainActivity" />
+        <activity android:name=".view.PokemonListe" />
+        <activity android:name=".view.PokemonDetailsView" />
         <activity android:name=".view.MenuActivity" />
-        <activity android:name=".view.Activity_tweet"></activity>
+        <activity android:name=".view.Activitytweet" />
+        <activity android:name=".view.PokemonBoosters" />
+        <activity android:name=".view.PokemonExchangeMenu" />
+        <activity android:name=".view.PokemonExchangeList" />
+        <activity android:name=".view.PokemonExchangeAdd" />
     </application>
 
 </manifest>

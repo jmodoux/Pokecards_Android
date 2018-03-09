@@ -35,6 +35,10 @@ public interface ServicePokemon {
     @FormUrlEncoded
     Call<User> createNewUser(@Field("token_facebook") String token, @Field("username") String name);
 
+    @GET("pokemon/booster")
+    Call<ArrayList<Pokemon>> buyBooster(@Query("generation") int gen, @Query("token") String token);
+
+
     ArrayList<Pokemon> getEvolutionChain(int id_Pokemon);
     Void evolve(int id_old, int id_new);
     Void echange(int id_lost, int id_new);

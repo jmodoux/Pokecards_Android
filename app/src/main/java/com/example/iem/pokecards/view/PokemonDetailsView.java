@@ -13,13 +13,13 @@ import com.example.iem.pokecards.modele.Pokemon;
 import com.squareup.picasso.Picasso;
 
 public class
-Pokemon_DetailsView extends AppCompatActivity {
+PokemonDetailsView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Context context = getApplicationContext();
-        setContentView(R.layout.activity_pokemon__details_view);
+        setContentView(R.layout.activity_pokemon_details_view);
         Intent i = getIntent();
         Pokemon pokemon = (Pokemon) i.getSerializableExtra("Pokemon");
         TextView name = (TextView) findViewById(R.id.textView_Name);

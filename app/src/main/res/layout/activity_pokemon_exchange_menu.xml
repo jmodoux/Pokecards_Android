@@ -6,4 +6,40 @@
     android:layout_height="match_parent"
     tools:context="com.example.iem.pokecards.view.PokemonExchangeMenu">
 
+
+    <Button
+        android:id="@+id/buttonGoToExchange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Acceder aux propositions"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/allTradeimageView"/>
+
+    <ImageView
+        android:id="@+id/allTradeimageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonGoToExchange"
+        app:layout_constraintBottom_toTopOf="@+id/buttonNewExchange"/>
+
+    <Button
+        android:id="@+id/buttonNewExchange"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Créer une proposition"
+        app:layout_constraintTop_toBottomOf="@+id/allTradeimageView"
+        app:layout_constraintBottom_toTopOf="@+id/newTradeimageView"/>
+
+    <ImageView
+        android:id="@+id/newTradeimageView"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/buttonNewExchange" />
+
 </android.support.constraint.ConstraintLayout>
