@@ -43,24 +43,27 @@ public class PokemonExchangeList extends AppCompatActivity {
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> a, View v, final int position, long id) {
                 final Exchange selectedExchange = (Exchange) maListViewPerso.getItemAtPosition(position);
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
 
-                        mws.exchangeRealised(selectedExchange.getId(), Singleton.getInstance().getUser().getToken_facebook(), activity);
-                        Toast.makeText(context, "Vous avez bien reçu " + selectedExchange.getPokemonTo().getName(), Toast.LENGTH_SHORT).show();
-                        finish();
-                    }
-                });
-                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-                builder.setMessage("Etes vous sur d'accepter d'échanger votre " + selectedExchange.getPokemonFrom().getName() + " contre " + selectedExchange.getPokemonTo().getName() + " ?")
-                        .setTitle("Accepter l'échange");
-                AlertDialog dialog = builder.create();
-                dialog.show();
+                if(Singleton.getInstance().getUser().doIHaveThisPokemon(selectedExchange.getPokemonTo())) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+
+                            mws.exchangeRealised(selectedExchange.getId(), Singleton.getInstance().getUser().getToken_facebook(), activity);
+                            Toast.makeText(context, "Vous avez bien reçu " + selectedExchange.getPokemonTo().getName(), Toast.LENGTH_SHORT).show();
+                            finish();
+                        }
+                    });
+                    builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            dialog.cancel();
+                        }
+                    });
+                    builder.setMessage("Etes vous sur d'accepter d'échanger votre " + selectedExchange.getPokemonFrom().getName() + " contre " + selectedExchange.getPokemonTo().getName() + " ?")
+                            .setTitle("Accepter l'échange");
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
 
             }
         });
