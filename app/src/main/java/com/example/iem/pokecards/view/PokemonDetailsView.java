@@ -25,7 +25,7 @@ PokemonDetailsView extends AppCompatActivity {
         TextView name = (TextView) findViewById(R.id.textView_Name);
         TextView id_pokedex = (TextView) findViewById(R.id.textView_NumPokedex);
         TextView generation = (TextView) findViewById(R.id.textView_Generation_Result);
-        TextView type = (TextView) findViewById(R.id.textView_Types_Result);
+
         TextView iteration = (TextView) findViewById(R.id.textView_Iteration_Result);
         TextView height = (TextView) findViewById(R.id.textView_Height_Result);
         TextView weight = (TextView) findViewById(R.id.textView_Weight_Result);
@@ -34,15 +34,7 @@ PokemonDetailsView extends AppCompatActivity {
 
         name.setText(pokemon.getName());
         //generation.setText(pokemon.getGeneration());
-        String types="";
-        for(int position=0; position<pokemon.getType().size();position++){
-            if(position>0){
-                types +="-";
-            }
-            types +=pokemon.getType().get(position);
-        }
-        type.setText(types);
-        iteration.setText("1");
+        iteration.setText(pokemon.getIteration().toString());
         id_pokedex.setText(pokemon.getId().toString());
         generation.setText(pokemon.getGeneration().toString());
         height.setText(pokemon.getHeight().toString());

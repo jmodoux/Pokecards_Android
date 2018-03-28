@@ -26,7 +26,7 @@ public class PokemonApp extends Application {
         Twitter.initialize(this);
         Retrofit.Builder mBuilder =
                 new Retrofit.Builder()
-                        .baseUrl("http://pokecards.local/index.php/")
+                        .baseUrl("http://pokecards.local:3000/")
                         .addConverterFactory(GsonConverterFactory.create());
 
         OkHttpClient.Builder okBuilder = new OkHttpClient.Builder();

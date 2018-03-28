@@ -16,6 +16,7 @@ import com.example.iem.pokecards.R;
 import com.example.iem.pokecards.manager.ManagerWS;
 import com.example.iem.pokecards.manager.Singleton;
 import com.example.iem.pokecards.modele.Pokemon;
+import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,22 +25,23 @@ public class PokemonBoosters extends AppCompatActivity {
     private Spinner spinnerGen;
     private Button buttonSpinner;
     ArrayList<Pokemon> listItem;
-    MyAdapter mSchedule;
+    PokemonSimpleAdapter mSchedule;
+    private Context context;
+    private ListView maListViewPerso;
+    private ManagerWS mws;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemon_boosters);
+        initView();
 
-        spinnerGen = (Spinner) findViewById(R.id.spinnerGen);
-        buttonSpinner = (Button) findViewById(R.id.buttonSpinnerGen);
-        final ListView maListViewPerso = (ListView) findViewById(R.id.listView2);
 
         List<String> listGen = new ArrayList<String>();
         listGen.add("Génération 1 : Rouge/Bleu");
         listGen.add("Génération 2 : Or/Argent");
         listGen.add("Génération 3 : Rubis/Saphir");
         listGen.add("Génération 4 : Diamant/Perle");
-        listGen.add("Génération 5 : Black/Noir");
+        listGen.add("Génération 5 : Blanc/Noir");
         listGen.add("Génération 6 : X/Y");
         listGen.add("Génération 7 : Soleil/Lune");
         ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
@@ -47,17 +49,10 @@ public class PokemonBoosters extends AppCompatActivity {
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGen.setAdapter(dataAdapter);
 
-        listItem = new ArrayList<Pokemon>();
 
-        mSchedule = new MyAdapter (listItem,this.getBaseContext());
+        mSchedule = new PokemonSimpleAdapter(listItem,context);
         maListViewPerso.setAdapter(mSchedule);
-        final ManagerWS mws = new ManagerWS(listItem, mSchedule);
-        final int selectedGen = spinnerGen.getSelectedItemPosition()+1;
-
-        if(Singleton.getInstance().getUser().getCoins()==0){
-            buttonSpinner.setEnabled(false);
-        }
-
+        enableButtonSpinner();
         // 1. Instantiate an AlertDialog.Builder with its constructor
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -71,10 +66,12 @@ public class PokemonBoosters extends AppCompatActivity {
         buttonSpinner.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //mws.openBooster(selectedGen);
-
+                int selectedGen = spinnerGen.getSelectedItemPosition()+1;
+                mws.openBooster(selectedGen, mSchedule, listItem);
                 Singleton.getInstance().getUser().setCoins(Singleton.getInstance().getUser().getCoins()-1);
+                Singleton.getInstance().getMenuActivityPresenter().refresh();
                 dialog.show();
+                enableButtonSpinner();
 
             }
         });
@@ -92,5 +89,21 @@ public class PokemonBoosters extends AppCompatActivity {
             }
         });
     }
+
+    private void initView(){
+        spinnerGen = (Spinner) findViewById(R.id.spinnerGen);
+        buttonSpinner = (Button) findViewById(R.id.buttonSpinnerGen);
+        listItem = new ArrayList<Pokemon>();
+        context =this.getBaseContext();
+        maListViewPerso = (ListView) findViewById(R.id.listView2);
+        mws = new ManagerWS(listItem, mSchedule);
+    }
+
+    private void enableButtonSpinner(){
+        if(Singleton.getInstance().getUser().getCoins()==0){
+            buttonSpinner.setEnabled(false);
+        }
+    }
+
 
 }

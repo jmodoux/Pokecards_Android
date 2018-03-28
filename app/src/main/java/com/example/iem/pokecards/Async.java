@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 import com.example.iem.pokecards.modele.Pokemon;
-import com.example.iem.pokecards.view.MyAdapter;
+import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -20,11 +20,11 @@ import java.util.Collection;
 
 public class Async extends AsyncTask<Object, Void, String> {
     private ArrayList<Pokemon> array;
-    private MyAdapter adapter;
+    private PokemonSimpleAdapter adapter;
     @Override
     protected String doInBackground(Object... params) {
         array = (ArrayList<Pokemon>) params[0];
-        adapter = (MyAdapter) params[1];
+        adapter = (PokemonSimpleAdapter) params[1];
         String jsonRaw = this.jsonCreate((String) params[2]);
         array.addAll(this.Gsonreturn(jsonRaw));
 

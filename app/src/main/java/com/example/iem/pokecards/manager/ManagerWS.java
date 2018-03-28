@@ -1,18 +1,18 @@
 package com.example.iem.pokecards.manager;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
+import android.widget.BaseAdapter;
 import android.widget.Toast;
 
+import com.example.iem.pokecards.modele.Exchange;
 import com.example.iem.pokecards.modele.Pokemon;
 import com.example.iem.pokecards.modele.User;
-import com.example.iem.pokecards.view.MainActivity;
 import com.example.iem.pokecards.view.MenuActivity;
-import com.example.iem.pokecards.view.MyAdapter;
+import com.example.iem.pokecards.view.adapter.PokemonExchangeAdapter;
+import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 import com.example.iem.pokecards.PokemonApp;
-import com.facebook.AccessToken;
 
 import java.util.ArrayList;
 
@@ -25,13 +25,10 @@ import retrofit2.Response;
  */
 
 public class ManagerWS{
-    ArrayList<Pokemon> pokemonList;
-    MyAdapter adapter;
+
     boolean isNewUser;
 
-    public ManagerWS(ArrayList<Pokemon> pokemonList, MyAdapter adapter) {
-        this.pokemonList=pokemonList;
-        this.adapter=adapter;
+    public ManagerWS(ArrayList<Pokemon> pokemonList, PokemonSimpleAdapter adapter) {
         this.isNewUser=false;
     }
 
@@ -43,7 +40,11 @@ public class ManagerWS{
     public ManagerWS() {
     }
 
-    public void getAll(){
+
+
+
+
+    public void getAll(final BaseAdapter adapter,final  ArrayList<Pokemon> pokemonList){
         Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().getAll();
         call.enqueue(new Callback<ArrayList<Pokemon>>() {
             @Override
@@ -54,42 +55,46 @@ public class ManagerWS{
 
             @Override
             public void onFailure(Call<ArrayList<Pokemon>> call, Throwable t) {
-                Log.d("Error", "Fail");
+                Log.d("Error", "Fail + " + t.getMessage());
             }
         });
 
     }
 
-
-    public void getPokemonListByUser(String token){
+    public void getPokemonListByUser(String token, final Boolean doNotify, final BaseAdapter adapter, final ArrayList<Pokemon> pokemonList){
         Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().getListPokemonByuser(token);
         call.enqueue(new Callback<ArrayList<Pokemon>>() {
             @Override
             public void onResponse(Call<ArrayList<Pokemon>> call, Response<ArrayList<Pokemon>> response) {
                 pokemonList.addAll(response.body());
-                adapter.notifyDataSetChanged();
+                Singleton.getInstance().getUser().setPokemonList(pokemonList);
+                if(doNotify) {
+                    adapter.notifyDataSetChanged();
+                }
             }
 
             @Override
             public void onFailure(Call<ArrayList<Pokemon>> call, Throwable t) {
-                Log.d("Error", "Fail");
+                Log.d("Error", "Fail + " + t.getMessage());
             }
         });
 
     }
 
-    public void openBooster(int gen){
+    public void openBooster(int gen, final BaseAdapter adapter, final ArrayList<Pokemon> pokemonList){
         Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().buyBooster(gen, Singleton.getInstance().getUser().getToken_facebook());
         call.enqueue(new Callback<ArrayList<Pokemon>>() {
             @Override
             public void onResponse(Call<ArrayList<Pokemon>> call, Response<ArrayList<Pokemon>> response) {
+                //pokemonList.clear();
+                //Singleton.getInstance().getUser().newPokemon(response.body());
                 pokemonList.addAll(response.body());
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onFailure(Call<ArrayList<Pokemon>> call, Throwable t) {
-                Log.d("Error", "Fail");
+                Log.d("Error", "Fail + " + t.getMessage());
             }
         });
 
@@ -117,7 +122,7 @@ public class ManagerWS{
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d("Error", "Fail");
+                Log.d("Error", "Fail + " + t.getMessage());
             }
         });
     }
@@ -135,9 +140,60 @@ public class ManagerWS{
 
             @Override
             public void onFailure(Call<User> call, Throwable t) {
-                Log.d("Error", "Fail");
+                Log.d("Error", "Fail + " + t.getMessage());
             }
         });
     }
 
+    public void getAllExchange(final PokemonExchangeAdapter adapter, final ArrayList<Exchange> exchangeList){
+        Call<ArrayList<Exchange>> call = PokemonApp.getPokemonService().getExchangeList();
+        call.enqueue(new Callback<ArrayList<Exchange>>() {
+            @Override
+            public void onResponse(Call<ArrayList<Exchange>> call, Response<ArrayList<Exchange>> response) {
+                exchangeList.addAll(response.body());
+                adapter.notifyDataSetChanged();
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<Exchange>> call, Throwable t) {
+                Log.d("Error", "Fail + " + t.getMessage());
+            }
+        });
+
+    }
+
+    public void exchangeRealised(int id, String token, final Activity context){
+
+        Call<String> call = PokemonApp.getPokemonService().exchangeRealised(id, token);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Intent intent = new Intent(context, MenuActivity.class);
+                context.startActivity(intent);
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("Error", "Fail + " + t.getMessage());
+            }
+        });
+    }
+
+    public void createNewEchange(String token, int namePokemonWanted ,int namePokemonProposed, final Activity context){
+        Call<String> call = PokemonApp.getPokemonService().newExchange(token, namePokemonWanted, namePokemonProposed);
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                Intent intent = new Intent(context, MenuActivity.class);
+                context.startActivity(intent);
+                Toast.makeText(context, "Votre échange a été enregisté", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                Log.d("Error", "Fail + " + t.getMessage());
+            }
+        });
+    }
 }

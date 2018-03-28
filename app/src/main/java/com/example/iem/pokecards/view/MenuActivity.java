@@ -9,29 +9,25 @@ import android.widget.TextView;
 
 import com.example.iem.pokecards.R;
 import com.example.iem.pokecards.manager.Singleton;
+import com.example.iem.pokecards.presenter.MenuActivityPresenter;
 
 public class MenuActivity extends AppCompatActivity {
-
+    private MenuActivityPresenter presenter;
+    private Button allPoke, userPoke, boosterPage, exchangeButton;
+    private TextView userName, numberOfCoins;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        presenter = Singleton.getInstance().getMenuActivityPresenter();
         setContentView(R.layout.activity_menu);
-        Button allPoke = (Button) findViewById(R.id.buttonAllPokemon);
-        Button userPoke = (Button) findViewById(R.id.buttonUserList);
-        Button boosterPage = (Button) findViewById(R.id.buttonBooster);
-        Button exchangeButton = (Button) findViewById(R.id.buttonEchange);
-        TextView userName =(TextView) findViewById(R.id.textViewName);
-        TextView numberOfCoins =(TextView) findViewById(R.id.textViewNumberofCoins);
+        initView();
+        presenter.setNumberOfCoins(numberOfCoins);
+        presenter.refresh();
 
-
-        userName.setText(Singleton.getInstance().getUser().getUsername());
-        numberOfCoins.setText(String.valueOf(Singleton.getInstance().getUser().getCoins()));
         allPoke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, PokemonListe.class);
-                intent.putExtra("Request", "all");
-                startActivity(intent);
+                presenter.goToAllPoke(MenuActivity.this);
                 //finish(); //A activer plus tard
 
             }
@@ -40,9 +36,7 @@ public class MenuActivity extends AppCompatActivity {
         userPoke.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, PokemonListe.class);
-                intent.putExtra("Request", "user");
-                startActivity(intent);
+                presenter.goToUserPoke(MenuActivity.this);
                 //finish(); //A activer plus tard
 
             }
@@ -51,8 +45,7 @@ public class MenuActivity extends AppCompatActivity {
         boosterPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, PokemonBoosters.class);
-                startActivity(intent);
+                presenter.goToBooster(MenuActivity.this);
                 //finish(); //A activer plus tard
             }
         });
@@ -60,10 +53,20 @@ public class MenuActivity extends AppCompatActivity {
         exchangeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MenuActivity.this, PokemonExchangeMenu.class);
-                startActivity(intent);
+                presenter.goToExchange(MenuActivity.this);
                 //finish(); //A activer plus tard
             }
         });
     }
+
+    public void initView(){
+        allPoke = (Button) findViewById(R.id.buttonAllPokemon);
+        userPoke = (Button) findViewById(R.id.buttonUserList);
+        boosterPage = (Button) findViewById(R.id.buttonBooster);
+        exchangeButton = (Button) findViewById(R.id.buttonEchange);
+        userName = (TextView) findViewById(R.id.textViewName);
+        numberOfCoins = (TextView) findViewById(R.id.textViewNumberofCoins);
+        userName.setText(Singleton.getInstance().getUser().getUsername());
+    }
+
 }

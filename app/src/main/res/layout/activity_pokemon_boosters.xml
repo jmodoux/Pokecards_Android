@@ -23,7 +23,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/buttonSpinnerGen"
         app:layout_constraintTop_toBottomOf="@id/textViewCentral"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_marginStart="20dp"/>
 
     <Button

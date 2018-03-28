@@ -24,7 +24,7 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/img"
+        android:id="@+id/pokemon_ToSend_Image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_gravity="center_vertical"

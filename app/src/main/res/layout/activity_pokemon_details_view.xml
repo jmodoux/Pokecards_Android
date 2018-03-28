@@ -81,7 +81,7 @@
         android:id="@+id/textView_Types"
         android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:text="Type"
+        android:text=""
         app:layout_constraintTop_toBottomOf="@id/textView_Generation"
         android:layout_marginTop="10dp" />
 
@@ -89,7 +89,7 @@
         android:id="@+id/textView_Types_Result"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="Normal-Vol"
+        android:text=""
         android:textAlignment="center"
         app:layout_constraintTop_toBottomOf="@id/textView_Generation"
         app:layout_constraintStart_toEndOf="@id/textView_Types"

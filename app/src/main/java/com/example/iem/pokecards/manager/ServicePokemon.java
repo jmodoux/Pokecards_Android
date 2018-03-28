@@ -1,5 +1,6 @@
 package com.example.iem.pokecards.manager;
 
+import com.example.iem.pokecards.modele.Exchange;
 import com.example.iem.pokecards.modele.Pokemon;
 import com.example.iem.pokecards.modele.User;
 
@@ -35,9 +36,19 @@ public interface ServicePokemon {
     @FormUrlEncoded
     Call<User> createNewUser(@Field("token_facebook") String token, @Field("username") String name);
 
-    @GET("pokemon/booster")
-    Call<ArrayList<Pokemon>> buyBooster(@Query("generation") int gen, @Query("token") String token);
+    @GET("pokemon/booster/{generation}/{token}")
+    Call<ArrayList<Pokemon>> buyBooster(@Path("generation") int gen, @Path("token") String token);
 
+    @GET("pokemon/exchange")
+    Call<ArrayList<Exchange>> getExchangeList();
+
+    @POST("pokemon/exchange")
+    @FormUrlEncoded
+    Call<String> exchangeRealised(@Field("id_exchange") int id, @Field("token") String token);
+
+    @POST("pokemon/exchange/new")
+    @FormUrlEncoded
+    Call<String> newExchange(@Field("token") String token, @Field("pokemon_wanted") int id_PokemonWanted, @Field("pokemon_proposed") int id_PokemonProposed );
 
     ArrayList<Pokemon> getEvolutionChain(int id_Pokemon);
     Void evolve(int id_old, int id_new);

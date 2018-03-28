@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp">
+
+    <ImageView
+        android:id="@+id/image_Pokemon_Wanted"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/pokemonWanted_id_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image_Pokemon_Wanted"
+        app:layout_constraintEnd_toStartOf="@+id/pokemonWanted_user_name"
+        app:layout_constraintTop_toTopOf="@id/image_Pokemon_Wanted"
+        app:layout_constraintBottom_toBottomOf="@id/image_Pokemon_Wanted"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:id="@+id/pokemonWanted_user_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/pokemonWanted_id_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/image_Pokemon_Wanted"
+        app:layout_constraintBottom_toBottomOf="@id/image_Pokemon_Wanted" />
+
+    <ImageView
+        android:id="@+id/image_Pokemon_To_Send"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        app:layout_constraintEnd_toEndOf="@id/image_Pokemon_Wanted"
+        app:layout_constraintTop_toBottomOf="@id/image_Pokemon_Wanted"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/pokemon_ToSend_id_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@id/image_Pokemon_Wanted"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/pokemon_ToSend_Image"
+        app:layout_constraintBottom_toBottomOf="@id/pokemon_ToSend_Image"
+        android:layout_marginStart="10dp"/>
+
+</android.support.constraint.ConstraintLayout>

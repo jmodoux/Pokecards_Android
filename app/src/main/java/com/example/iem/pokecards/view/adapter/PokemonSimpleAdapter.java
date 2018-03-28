@@ -1,4 +1,4 @@
-package com.example.iem.pokecards.view;
+package com.example.iem.pokecards.view.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -20,13 +20,13 @@ import com.squareup.picasso.Picasso;
  * Created by iem on 14/11/2017.
  */
 
-public class MyAdapter extends BaseAdapter {
+public class PokemonSimpleAdapter extends BaseAdapter {
 
     ArrayList<Pokemon> listItem= new ArrayList<Pokemon>();
     Context context;
     LinearLayout layoutItem;
 
-    public MyAdapter(ArrayList<Pokemon> listItem, Context context) {
+    public PokemonSimpleAdapter(ArrayList<Pokemon> listItem, Context context) {
         this.listItem = listItem;
         this.context = context;
     }
@@ -61,7 +61,7 @@ public class MyAdapter extends BaseAdapter {
 
         //(2) : Récupération des TextView de notre layout
         TextView tv_pokemon_id_name = (TextView) layoutItem.findViewById(R.id.pokemon_id_name);
-        ImageView icone = (ImageView) layoutItem.findViewById(R.id.img);
+        ImageView icone = (ImageView) layoutItem.findViewById(R.id.pokemon_ToSend_Image);
 
 
         //(3) : mise à jour des widgets des elements de l'item
@@ -78,7 +78,7 @@ public class MyAdapter extends BaseAdapter {
     }
 
     public ImageView getImg(){
-        return (ImageView) layoutItem.findViewById(R.id.img);
+        return (ImageView) layoutItem.findViewById(R.id.pokemon_ToSend_Image);
     }
 
 

@@ -8,10 +8,10 @@ import java.util.ArrayList;
  */
 
 public final class Pokemon implements Serializable {
-    private final Integer id, generation, iteration;
+    private final Integer id, generation;
+    private Integer iteration;
     private final Double  height, weight;
     private final String name, image;
-    private final ArrayList<String> type;
     private final ArrayList<Integer> evolution;
 
 
@@ -22,10 +22,9 @@ public final class Pokemon implements Serializable {
         generation = 1;
         name="Bulbizarre";
         image="";
-        type = new ArrayList<String>();
         evolution = new ArrayList<Integer>();
         evolution.add(2);
-        iteration=0;
+        iteration=1;
     }
 
     public Pokemon(Integer id, Double height, Double weight, Integer generation, String name, String image, ArrayList<String> type, ArrayList<Integer> evolution, Integer iteration){
@@ -35,7 +34,6 @@ public final class Pokemon implements Serializable {
         this.generation=generation;
         this.name=name;
         this.image=image;
-        this.type = type;
         this.evolution = evolution;
         this.iteration=iteration;
     }
@@ -64,9 +62,6 @@ public final class Pokemon implements Serializable {
         return image;
     }
 
-    public ArrayList<String> getType() {
-        return type;
-    }
 
     public ArrayList<Integer> getEvolution() {
         return evolution;
@@ -74,6 +69,7 @@ public final class Pokemon implements Serializable {
 
     public Integer getIteration(){return iteration;}
 
+    public void addIteration(){iteration++;}
     @Override
     public String toString() {
         return  "id=" + id +
