@@ -1,17 +1,24 @@
 package com.example.iem.pokecards.modele;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by iem on 28/03/2018.
  */
 
 public class Exchange {
-    Pokemon pokemonFrom, pokemonTo;
+
+    @SerializedName("pokemon_wanted")
+    Pokemon pokemonWanted;
+    @SerializedName("pokemon_proposed")
+    Pokemon pokemonProposed;
+    @SerializedName("username")
     String userName;
     int id;
 
-    public Exchange(Pokemon pokemonFrom, Pokemon pokemonTo, String userName, int id) {
-        this.pokemonFrom = pokemonFrom;
-        this.pokemonTo = pokemonTo;
+    public Exchange(Pokemon pokemonWanted, Pokemon pokemonProposed, String userName, int id) {
+        this.pokemonWanted = pokemonWanted;
+        this.pokemonProposed = pokemonProposed;
         this.userName = userName;
         this.id = id;
     }
@@ -24,20 +31,20 @@ public class Exchange {
         this.id = id;
     }
 
-    public Pokemon getPokemonFrom() {
-        return pokemonFrom;
+    public Pokemon getPokemonWanted() {
+        return pokemonWanted;
     }
 
-    public void setPokemonFrom(Pokemon pokemonFrom) {
-        this.pokemonFrom = pokemonFrom;
+    public void setPokemonWanted(Pokemon pokemonWanted) {
+        this.pokemonWanted = pokemonWanted;
     }
 
-    public Pokemon getPokemonTo() {
-        return pokemonTo;
+    public Pokemon getPokemonProposed() {
+        return pokemonProposed;
     }
 
-    public void setPokemonTo(Pokemon pokemonTo) {
-        this.pokemonTo = pokemonTo;
+    public void setPokemonProposed(Pokemon pokemonProposed) {
+        this.pokemonProposed = pokemonProposed;
     }
 
     public String getUserName() {

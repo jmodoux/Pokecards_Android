@@ -2,6 +2,7 @@ package com.example.iem.pokecards.manager;
 
 import com.example.iem.pokecards.modele.Pokemon;
 import com.example.iem.pokecards.modele.User;
+import com.example.iem.pokecards.presenter.BoostersActivityPresenter;
 import com.example.iem.pokecards.presenter.MenuActivityPresenter;
 import com.example.iem.pokecards.presenter.PokemonExchangeListPresenter;
 import com.example.iem.pokecards.view.PokemonExchangeList;
@@ -17,6 +18,7 @@ public class Singleton {
     private User user;
     private MenuActivityPresenter menuActivityPresenter;
     private PokemonExchangeListPresenter exchangeListPresenter;
+    private BoostersActivityPresenter boostersActivityPresenter;
 
 
     private static final Singleton ourInstance = new Singleton();
@@ -30,6 +32,7 @@ public class Singleton {
         user = new User();
         menuActivityPresenter = new MenuActivityPresenter();
         exchangeListPresenter = new PokemonExchangeListPresenter();
+        boostersActivityPresenter = new BoostersActivityPresenter();
     }
 
     public ManagerWS getManagerWS() {
@@ -52,5 +55,9 @@ public class Singleton {
 
     public MenuActivityPresenter getMenuActivityPresenter() {
         return menuActivityPresenter;
+    }
+
+    public BoostersActivityPresenter getBoostersActivityPresenter() {
+        return boostersActivityPresenter;
     }
 }

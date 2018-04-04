@@ -171,6 +171,7 @@ public class ManagerWS{
             public void onResponse(Call<String> call, Response<String> response) {
                 Intent intent = new Intent(context, MenuActivity.class);
                 context.startActivity(intent);
+                Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
             }
 
             @Override

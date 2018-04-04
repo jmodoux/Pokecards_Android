@@ -16,6 +16,7 @@ import com.example.iem.pokecards.R;
 import com.example.iem.pokecards.manager.ManagerWS;
 import com.example.iem.pokecards.manager.Singleton;
 import com.example.iem.pokecards.modele.Pokemon;
+import com.example.iem.pokecards.presenter.BoostersActivityPresenter;
 import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 
 import java.util.ArrayList;
@@ -29,26 +30,16 @@ public class PokemonBoosters extends AppCompatActivity {
     private Context context;
     private ListView maListViewPerso;
     private ManagerWS mws;
+    private BoostersActivityPresenter boostersActivityPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pokemon_boosters);
-        initView();
 
-
-        List<String> listGen = new ArrayList<String>();
-        listGen.add("Génération 1 : Rouge/Bleu");
-        listGen.add("Génération 2 : Or/Argent");
-        listGen.add("Génération 3 : Rubis/Saphir");
-        listGen.add("Génération 4 : Diamant/Perle");
-        listGen.add("Génération 5 : Blanc/Noir");
-        listGen.add("Génération 6 : X/Y");
-        listGen.add("Génération 7 : Soleil/Lune");
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, listGen);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerGen.setAdapter(dataAdapter);
-
+        boostersActivityPresenter = Singleton.getInstance().getBoostersActivityPresenter();
+        boostersActivityPresenter.setPokemonBoosters(this);
+        boostersActivityPresenter.initView();
+        boostersActivityPresenter.initSpinner();
 
         mSchedule = new PokemonSimpleAdapter(listItem,context);
         maListViewPerso.setAdapter(mSchedule);
@@ -90,7 +81,7 @@ public class PokemonBoosters extends AppCompatActivity {
         });
     }
 
-    private void initView(){
+    public void initView(){
         spinnerGen = (Spinner) findViewById(R.id.spinnerGen);
         buttonSpinner = (Button) findViewById(R.id.buttonSpinnerGen);
         listItem = new ArrayList<Pokemon>();
@@ -103,6 +94,22 @@ public class PokemonBoosters extends AppCompatActivity {
         if(Singleton.getInstance().getUser().getCoins()==0){
             buttonSpinner.setEnabled(false);
         }
+    }
+
+    public void initSpinner(){
+        List<String> listGen = new ArrayList<String>();
+        listGen.add("Génération 1 : Rouge/Bleu");
+        listGen.add("Génération 2 : Or/Argent");
+        listGen.add("Génération 3 : Rubis/Saphir");
+        listGen.add("Génération 4 : Diamant/Perle");
+        listGen.add("Génération 5 : Blanc/Noir");
+        listGen.add("Génération 6 : X/Y");
+        listGen.add("Génération 7 : Soleil/Lune");
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, listGen);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerGen.setAdapter(dataAdapter);
     }
 
 

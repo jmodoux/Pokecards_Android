@@ -1,5 +1,7 @@
 package com.example.iem.pokecards.modele;
 
+import com.example.iem.pokecards.manager.Singleton;
+
 import java.util.ArrayList;
 
 /**
@@ -59,15 +61,6 @@ public class User {
         this.pokemonList = pokemonList;
     }
 
-    public boolean doIHaveThisPokemon(Pokemon pokemon){
-        for (Pokemon poke: pokemonList
-             ) {
-                if(poke.getName()==pokemon.getName()){
-                    return true;
-                }
-        }
-        return false;
-    }
     
     public void newPokemon(ArrayList<Pokemon> listPoke){
         for (Pokemon newPokemon: listPoke

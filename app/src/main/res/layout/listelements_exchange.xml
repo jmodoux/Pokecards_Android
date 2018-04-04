@@ -50,10 +50,10 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@id/image_Pokemon_Wanted"
+        app:layout_constraintStart_toEndOf="@id/image_Pokemon_To_Send"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/pokemon_ToSend_Image"
-        app:layout_constraintBottom_toBottomOf="@id/pokemon_ToSend_Image"
+        app:layout_constraintTop_toTopOf="@id/image_Pokemon_To_Send"
+        app:layout_constraintBottom_toBottomOf="@id/image_Pokemon_To_Send"
         android:layout_marginStart="10dp"/>
 
 </android.support.constraint.ConstraintLayout>
