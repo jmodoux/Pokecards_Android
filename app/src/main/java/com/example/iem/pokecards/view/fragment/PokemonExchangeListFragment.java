@@ -8,8 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.example.iem.pokecards.R;
 import com.example.iem.pokecards.manager.ManagerWS;
 import com.example.iem.pokecards.manager.Singleton;
@@ -26,7 +30,9 @@ public class PokemonExchangeListFragment extends BaseFragment {
     Activity activity;
     final ManagerWS mws = Singleton.getInstance().getManagerWS();
     ListView maListViewPerso;
+    ImageView imageViewloading;
     View v;
+    LinearLayout linearLayoutLoading;
 
     public static PokemonExchangeListFragment newInstance() {
 
@@ -46,8 +52,12 @@ public class PokemonExchangeListFragment extends BaseFragment {
         context = getActivity().getApplicationContext();
         activity = getActivity();
 
-        Singleton.getInstance().getExchangeListPresenter().setExchangeList(this);
+        imageViewloading = v.findViewById(R.id.imageViewLoading);
+        linearLayoutLoading = (LinearLayout) v.findViewById(R.id.loading);
+        GlideDrawableImageViewTarget imageViewTarget = new GlideDrawableImageViewTarget(imageViewloading);
+        Glide.with(this).load(R.raw.loading).into(imageViewTarget);
 
+        Singleton.getInstance().getExchangeListPresenter().setExchangeList(this);
         Singleton.getInstance().getExchangeListPresenter().refresh();
 
         maListViewPerso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -67,7 +77,7 @@ public class PokemonExchangeListFragment extends BaseFragment {
         listItem = new ArrayList<Exchange>();
         mSchedule = new PokemonExchangeAdapter(listItem,context);
         maListViewPerso.setAdapter(mSchedule);
-        mws.getAllExchange(mSchedule, listItem);
+        mws.getAllExchange(mSchedule, listItem, linearLayoutLoading);
     }
 
     public void createDialog(AlertDialog dialog){

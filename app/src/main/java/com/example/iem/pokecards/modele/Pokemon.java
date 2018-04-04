@@ -12,6 +12,7 @@ public final class Pokemon implements Serializable {
     private Integer iteration;
     private final Double  height, weight;
     private final String name, image;
+    private String card;
     private final ArrayList<Integer> evolution;
 
 
@@ -25,9 +26,10 @@ public final class Pokemon implements Serializable {
         evolution = new ArrayList<Integer>();
         evolution.add(2);
         iteration=1;
+        card ="";
     }
 
-    public Pokemon(Integer id, Double height, Double weight, Integer generation, String name, String image, ArrayList<String> type, ArrayList<Integer> evolution, Integer iteration){
+    public Pokemon(Integer id, Double height, Double weight, Integer generation, String name, String image, ArrayList<String> type, ArrayList<Integer> evolution, Integer iteration, String card){
         this.id=id;
         this.height=height;
         this.weight=weight;
@@ -36,6 +38,15 @@ public final class Pokemon implements Serializable {
         this.image=image;
         this.evolution = evolution;
         this.iteration=iteration;
+        this.card = card;
+    }
+
+    public String getCard() {
+        return card;
+    }
+
+    public void setCard(String card) {
+        this.card = card;
     }
 
     public Integer getId() {

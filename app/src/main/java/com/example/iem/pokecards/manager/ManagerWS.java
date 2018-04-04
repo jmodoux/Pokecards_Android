@@ -3,7 +3,9 @@ package com.example.iem.pokecards.manager;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.View;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.iem.pokecards.modele.Exchange;
@@ -44,11 +46,14 @@ public class ManagerWS{
 
 
 
-    public void getAll(final BaseAdapter adapter,final  ArrayList<Pokemon> pokemonList){
+    public void getAll(final BaseAdapter adapter, final  ArrayList<Pokemon> pokemonList, final LinearLayout linearLayout){
         Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().getAll();
         call.enqueue(new Callback<ArrayList<Pokemon>>() {
             @Override
             public void onResponse(Call<ArrayList<Pokemon>> call, Response<ArrayList<Pokemon>> response) {
+                if(linearLayout != null){
+                    linearLayout.setVisibility(View.GONE);
+                }
                 pokemonList.addAll(response.body());
                 adapter.notifyDataSetChanged();
             }
@@ -61,11 +66,14 @@ public class ManagerWS{
 
     }
 
-    public void getPokemonListByUser(String token, final Boolean doNotify, final BaseAdapter adapter, final ArrayList<Pokemon> pokemonList){
+    public void getPokemonListByUser(String token, final Boolean doNotify, final BaseAdapter adapter, final ArrayList<Pokemon> pokemonList, final LinearLayout linearLayout){
         Call<ArrayList<Pokemon>> call = PokemonApp.getPokemonService().getListPokemonByuser(token);
         call.enqueue(new Callback<ArrayList<Pokemon>>() {
             @Override
             public void onResponse(Call<ArrayList<Pokemon>> call, Response<ArrayList<Pokemon>> response) {
+                if(linearLayout != null){
+                    linearLayout.setVisibility(View.GONE);
+                }
                 pokemonList.addAll(response.body());
                 Singleton.getInstance().getUser().setPokemonList(pokemonList);
                 if(doNotify) {
@@ -109,7 +117,7 @@ public class ManagerWS{
 
                     if(response.body()!=null){
                         Singleton.getInstance().setUser(response.body());
-                        Toast.makeText(context, "Hello " + Singleton.getInstance().getUser().getUsername() + " " + singleton.getUser().getToken_facebook(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Hello " + Singleton.getInstance().getUser().getUsername(), Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);
                     }else{
@@ -144,11 +152,12 @@ public class ManagerWS{
         });
     }
 
-    public void getAllExchange(final PokemonExchangeAdapter adapter, final ArrayList<Exchange> exchangeList){
+    public void getAllExchange(final PokemonExchangeAdapter adapter, final ArrayList<Exchange> exchangeList, final LinearLayout linearLayout){
         Call<ArrayList<Exchange>> call = PokemonApp.getPokemonService().getExchangeList();
         call.enqueue(new Callback<ArrayList<Exchange>>() {
             @Override
             public void onResponse(Call<ArrayList<Exchange>> call, Response<ArrayList<Exchange>> response) {
+                linearLayout.setVisibility(View.GONE);
                 exchangeList.addAll(response.body());
                 adapter.notifyDataSetChanged();
 

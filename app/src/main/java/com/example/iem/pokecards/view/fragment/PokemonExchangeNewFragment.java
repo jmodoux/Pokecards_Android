@@ -109,8 +109,8 @@ public class PokemonExchangeNewFragment extends BaseFragment {
     }
 
     private void initListViews(){
-        mws.getPokemonListByUser(Singleton.getInstance().getUser().getToken_facebook(), true, mSchedulePokemonProposed, listItemPokemonProposed);
-        mws.getAll(mSchedulePokemonWanted, listItemPokemonWanted);
+        mws.getPokemonListByUser(Singleton.getInstance().getUser().getToken_facebook(), true, mSchedulePokemonProposed, listItemPokemonProposed, null);
+        mws.getAll(mSchedulePokemonWanted, listItemPokemonWanted, null);
     }
 
     public void createDialog(AlertDialog dialog){

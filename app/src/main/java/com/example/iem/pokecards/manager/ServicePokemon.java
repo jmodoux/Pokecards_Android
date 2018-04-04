@@ -42,6 +42,12 @@ public interface ServicePokemon {
     @GET("pokemon/exchange")
     Call<ArrayList<Exchange>> getExchangeList();
 
+    @GET("pokemon/details/{id}")
+    Call<ArrayList<Exchange>> getDetailsPokemon(@Path("id") int id);
+
+    @GET("pokemon/details/{id}/{token}")
+    Call<ArrayList<Exchange>> getDetailsPokemon(@Path("id") int id, String token);
+
     @POST("pokemon/exchange")
     @FormUrlEncoded
     Call<String> exchangeRealised(@Field("id_exchange") int id, @Field("token") String token);
