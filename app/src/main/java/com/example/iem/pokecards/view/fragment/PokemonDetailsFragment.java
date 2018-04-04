@@ -1,9 +1,10 @@
-package com.example.iem.pokecards.view;
+package com.example.iem.pokecards.view.fragment;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,39 +16,54 @@ import com.example.iem.pokecards.presenter.DetailsViewPresenter;
 import com.squareup.picasso.Picasso;
 
 public class
-PokemonDetailsView extends AppCompatActivity {
+PokemonDetailsFragment extends BaseFragment {
     TextView name, id_pokedex, generation, iteration, height, weight;
     ImageView icone;
     Button evolve;
     Pokemon pokemon;
     Context context;
     DetailsViewPresenter detailsViewPresenter;
+    View v;
+
+    public static PokemonDetailsFragment newInstance() {
+
+        Bundle args = new Bundle();
+        PokemonDetailsFragment fragment = new PokemonDetailsFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_pokemon_details_view);
+        v = inflater.inflate(R.layout.fragment_pokemon_exchange_list, container, false);
         detailsViewPresenter = Singleton.getInstance().getDetailsViewPresenter();
         detailsViewPresenter.setPokemonDetailsView(this);
         initView();
         fillView();
         if(Integer.parseInt(iteration.getText().toString()) < 3)
         { evolve.setEnabled(false);}
+
+        String name = getArguments().getString("name", "toto");
+
+        return v;
     }
 
     public void initView(){
         pokemon = detailsViewPresenter.getPokemonToDetail();
-        context = getApplicationContext();
-        name = (TextView) findViewById(R.id.textView_Name);
-        id_pokedex = (TextView) findViewById(R.id.textView_NumPokedex);
-        generation = (TextView) findViewById(R.id.textView_Generation_Result);
+        context = getActivity().getApplicationContext();
+        name = (TextView) v.findViewById(R.id.textView_Name);
+        id_pokedex = (TextView) v.findViewById(R.id.textView_NumPokedex);
+        generation = (TextView) v.findViewById(R.id.textView_Generation_Result);
 
-        iteration = (TextView) findViewById(R.id.textView_Iteration_Result);
-        height = (TextView) findViewById(R.id.textView_Height_Result);
-        weight = (TextView) findViewById(R.id.textView_Weight_Result);
-        icone = (ImageView) findViewById(R.id.detail_sprite);
-        evolve = (Button) findViewById(R.id.buttonEvolution);
+        iteration = (TextView) v.findViewById(R.id.textView_Iteration_Result);
+        height = (TextView) v.findViewById(R.id.textView_Height_Result);
+        weight = (TextView) v.findViewById(R.id.textView_Weight_Result);
+        icone = (ImageView) v.findViewById(R.id.detail_sprite);
+        evolve = (Button) v.findViewById(R.id.buttonEvolution);
     }
 
     public void fillView(){

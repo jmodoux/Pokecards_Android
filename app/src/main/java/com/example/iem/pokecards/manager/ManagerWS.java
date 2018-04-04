@@ -9,7 +9,7 @@ import android.widget.Toast;
 import com.example.iem.pokecards.modele.Exchange;
 import com.example.iem.pokecards.modele.Pokemon;
 import com.example.iem.pokecards.modele.User;
-import com.example.iem.pokecards.view.MenuActivity;
+import com.example.iem.pokecards.view.MainActivity;
 import com.example.iem.pokecards.view.adapter.PokemonExchangeAdapter;
 import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 import com.example.iem.pokecards.PokemonApp;
@@ -109,12 +109,10 @@ public class ManagerWS{
 
                     if(response.body()!=null){
                         Singleton.getInstance().setUser(response.body());
-                        Log.d("CHEVRE", "JE PASSE DANS IF");
                         Toast.makeText(context, "Hello " + Singleton.getInstance().getUser().getUsername() + " " + singleton.getUser().getToken_facebook(), Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent(context, MenuActivity.class);
+                        Intent intent = new Intent(context, MainActivity.class);
                         context.startActivity(intent);
                     }else{
-                        Log.d("CHEVRE", "JE PASSE DANS LE CATCH");
                         Toast.makeText(context, "Hello " + Singleton.getInstance().getUser().getUsername() + " " + singleton.getUser().getToken_facebook(), Toast.LENGTH_LONG);
                         createNewUser(token, name, context);
                     }
@@ -135,7 +133,7 @@ public class ManagerWS{
             @Override
             public void onResponse(Call<User> call, Response<User> response) {
                 Singleton.getInstance().setUser(response.body());
-                Intent intent = new Intent(context, MenuActivity.class);
+                Intent intent = new Intent(context, MainActivity.class);
                 context.startActivity(intent);
             }
 
@@ -170,8 +168,6 @@ public class ManagerWS{
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Intent intent = new Intent(context, MenuActivity.class);
-                context.startActivity(intent);
                 Toast.makeText(context, response.body(), Toast.LENGTH_SHORT).show();
             }
 
@@ -187,8 +183,6 @@ public class ManagerWS{
         call.enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
-                Intent intent = new Intent(context, MenuActivity.class);
-                context.startActivity(intent);
                 Toast.makeText(context, "Votre échange a été enregisté", Toast.LENGTH_SHORT).show();
             }
 

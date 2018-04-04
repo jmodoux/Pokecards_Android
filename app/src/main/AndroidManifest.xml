@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.iem.pokecards">
+
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -12,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- <activity android:name=".view.MainActivity"> -->
+        <!-- <activity android:name=".vLoginActivityvity"> -->
         <!-- <intent-filter> -->
         <!-- <action android:name="android.intent.action.MAIN" /> -->
 
@@ -50,16 +51,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.PokemonList" />
-        <activity android:name=".view.PokemonDetailsView" />
-        <activity android:name=".view.MenuActivity" />
-        <activity android:name=".view.Activitytweet" />
-        <activity android:name=".view.PokemonBoosters" />
-        <activity android:name=".view.PokemonExchangeMenu" />
-        <activity android:name=".view.PokemonExchangeList" />
-        <activity android:name=".view.PokemonExchangeNew" />
-        <activity android:name=".view.adapter.PokemonExchangeAdapter"></activity>
+        <activity android:name=".view.LoginActivity" />
+        <activity android:name=".view.fragment.PokemonDetailsFragment" />
+        <activity android:name=".view.fragment.PokemonBoosters" />
+        <activity android:name=".view.fragment.PokemonExchangeMenuFragment" />
+        <activity android:name=".view.fragment.PokemonExchangeListFragment" />
+        <activity android:name=".view.fragment.PokemonExchangeNewFragment" />
+        <activity android:name=".view.adapter.PokemonExchangeAdapter" />
+        <activity android:name=".view.MainActivity"></activity>
     </application>
 
 </manifest>

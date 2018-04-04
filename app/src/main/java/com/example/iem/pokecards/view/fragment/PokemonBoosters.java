@@ -1,11 +1,11 @@
-package com.example.iem.pokecards.view;
+package com.example.iem.pokecards.view.fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -22,7 +22,7 @@ import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PokemonBoosters extends AppCompatActivity {
+public class PokemonBoosters extends BaseFragment {
     private Spinner spinnerGen;
     private Button buttonSpinner;
     ArrayList<Pokemon> listItem;
@@ -31,10 +31,22 @@ public class PokemonBoosters extends AppCompatActivity {
     private ListView maListViewPerso;
     private ManagerWS mws;
     private BoostersActivityPresenter boostersActivityPresenter;
+    private View v;
+
+    public static PokemonBoosters newInstance() {
+
+        Bundle args = new Bundle();
+
+        PokemonBoosters fragment = new PokemonBoosters();
+        fragment.setArguments(args);
+        return fragment;
+    }
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokemon_boosters);
+        v = inflater.inflate(R.layout.fragment_pokemon_boosters, container, false);
+        context = getActivity().getApplicationContext();
 
         boostersActivityPresenter = Singleton.getInstance().getBoostersActivityPresenter();
         boostersActivityPresenter.setPokemonBoosters(this);
@@ -44,7 +56,7 @@ public class PokemonBoosters extends AppCompatActivity {
 
 
         enableButtonSpinner();
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("Vous venez de debloquez ces 5 nouveaux pokémons !")
                 .setTitle("Félicitation");
         final AlertDialog dialog = builder.create();
@@ -55,7 +67,7 @@ public class PokemonBoosters extends AppCompatActivity {
                 int selectedGen = spinnerGen.getSelectedItemPosition()+1;
                 mws.openBooster(selectedGen, mSchedule, listItem);
                 Singleton.getInstance().getUser().setCoins(Singleton.getInstance().getUser().getCoins()-1);
-                Singleton.getInstance().getMenuActivityPresenter().refresh();
+                //Singleton.getInstance().getMenuActivityPresenter().refresh();
                 dialog.show();
                 enableButtonSpinner();
 
@@ -67,21 +79,19 @@ public class PokemonBoosters extends AppCompatActivity {
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Pokemon selectedPoke = (Pokemon) maListViewPerso.getItemAtPosition(position);
-                Context context = getApplicationContext();
-                Intent intent = new Intent(PokemonBoosters.this, PokemonDetailsView.class);
-                intent.putExtra("Pokemon", selectedPoke);
-                startActivity(intent);
-
+                Singleton.getInstance().getDetailsViewPresenter().setPokemonToDetail(selectedPoke);
+                showFragment(PokemonDetailsFragment.newInstance());
             }
         });
+
+        return v;
     }
 
     public void initView(){
-        spinnerGen = (Spinner) findViewById(R.id.spinnerGen);
-        buttonSpinner = (Button) findViewById(R.id.buttonSpinnerGen);
+        spinnerGen = (Spinner) v.findViewById(R.id.spinnerGen);
+        buttonSpinner = (Button) v.findViewById(R.id.buttonSpinnerGen);
         listItem = new ArrayList<Pokemon>();
-        context =this.getBaseContext();
-        maListViewPerso = (ListView) findViewById(R.id.listView2);
+        maListViewPerso = (ListView) v.findViewById(R.id.listView2);
         mws = new ManagerWS(listItem, mSchedule);
         mSchedule = new PokemonSimpleAdapter(listItem,context);
         maListViewPerso.setAdapter(mSchedule);
@@ -103,7 +113,7 @@ public class PokemonBoosters extends AppCompatActivity {
         listGen.add("Génération 6 : X/Y");
         listGen.add("Génération 7 : Soleil/Lune");
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(getActivity(),
                 android.R.layout.simple_spinner_item, listGen);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinnerGen.setAdapter(dataAdapter);

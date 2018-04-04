@@ -1,128 +1,107 @@
 package com.example.iem.pokecards.view;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
-import android.content.pm.Signature;
-import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Base64;
-import android.util.Log;
+import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.example.iem.pokecards.R;
 import com.example.iem.pokecards.manager.Singleton;
-import com.example.iem.pokecards.modele.Pokemon;
-import com.facebook.AccessToken;
-import com.facebook.CallbackManager;
-import com.facebook.FacebookCallback;
-import com.facebook.FacebookException;
-import com.facebook.FacebookSdk;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-import com.facebook.appevents.AppEventsLogger;
-import com.facebook.login.LoginManager;
-import com.facebook.login.LoginResult;
-import com.facebook.login.widget.LoginButton;
+import com.example.iem.pokecards.modele.User;
+import com.example.iem.pokecards.view.fragment.PokemonBoosters;
+import com.example.iem.pokecards.view.fragment.PokemonExchangeMenuFragment;
+import com.example.iem.pokecards.view.fragment.PokemonListFragment;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-
-public class MainActivity extends AppCompatActivity {
-    CallbackManager callbackManager;
-    LoginButton loginButton;
-    Pokemon p;
-
+public class MainActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener {
+    private TextView textViewUser;
+    private TextView textViewUserCoins;
+    private ImageView imageViewUser;
+    User user;
+    //region methodes
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.iem.pokecards.view",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash:", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
 
-        } catch (NoSuchAlgorithmException e) {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View header = navigationView.getHeaderView(0);
+
+        //ad - on set le nom de l'utilisateur dans le header de la toolbar
+        user = Singleton.getInstance().getUser();
+        textViewUser = (TextView) header.findViewById(R.id.textViewUserName);
+        textViewUser.setText(user.getUsername());
+        textViewUserCoins = (TextView) header.findViewById(R.id.textViewUserNumberOfCoins);
+        textViewUserCoins.setText(Integer.toString(user.getCoins()));
+
+        navigationView.setNavigationItemSelectedListener(MainActivity.this);
+    }
+    @Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+        switch (id){
+            case R.id.nav_allPoke :
+                clearBackstack();
+                showFragment(PokemonListFragment.newInstance("all"));
+                getSupportActionBar().setTitle("Tous les Pokemons");
+                break;
+
+            case R.id.nav_myPoke :
+                clearBackstack();
+                showFragment(PokemonListFragment.newInstance("myPoke"));
+                getSupportActionBar().setTitle("Mes Pokemons");
+                break;
+
+            case R.id.nav_booster :
+                clearBackstack();
+                showFragment(PokemonBoosters.newInstance());
+                getSupportActionBar().setTitle("Ouvrez vos boosters !");
+                break;
+
+            case R.id.nav_exchange :
+                clearBackstack();
+                showFragment(PokemonExchangeMenuFragment.newInstance());
+                getSupportActionBar().setTitle("Echanges");
+                break;
 
         }
-        connexionFacebook();
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    public void update(){
+        textViewUser.setText(user.getUsername());
+        textViewUserCoins.setText(user.getCoins());
     }
 
-        @Override
-        protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-            super.onActivityResult(requestCode, resultCode, data);
-            try {
-                callbackManager.onActivityResult(requestCode, resultCode, data);
-            }catch (NullPointerException e) {
-                Context context = getApplicationContext();
-                CharSequence text = "La connexion a échoué";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
-            }
-        }
-
-    protected void connexionFacebook(){
-        callbackManager = CallbackManager.Factory.create();
-        setContentView(R.layout.activity_main);
-
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        AppEventsLogger.activateApp(this);
-
-        loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setReadPermissions("email");
-
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        GraphRequest grequest = GraphRequest.newMeRequest(loginResult.getAccessToken(),
-                                new GraphRequest.GraphJSONObjectCallback() {
-                                    @Override
-                                    public void onCompleted(JSONObject object, GraphResponse response) {
-                                        //ton code ici
-                                        Singleton singleton = Singleton.getInstance();
-                                        try {
-                                            Log.d("POST",object.get("name").toString() + " " + AccessToken.getCurrentAccessToken().getUserId() );
-                                            //singleton.setUser(new User(object.get("name").toString(), AccessToken.getCurrentAccessToken().getUserId()));
-                                            //Toast.makeText(MainActivity.this, "Hello " + Singleton.getInstance().getUser().getUsername() + " " + singleton.getUser().getToken_facebook(), Toast.LENGTH_SHORT).show();
-                                            singleton.getManagerWS().userConnexion(AccessToken.getCurrentAccessToken().getUserId(),object.get("name").toString(), MainActivity.this);
-
-                                        } catch (JSONException e) {
-                                            e.printStackTrace();
-                                        }
-
-                                    }
-                                });
-                        Bundle permission_param = new Bundle();
-                        permission_param.putString("fields", "id, name, email, picture.width(120).height(120)");
-                        grequest.setParameters(permission_param);
-                        grequest.executeAsync();
-                    }
-
-                    @Override
-                    public void onCancel() {
-                        Toast.makeText(MainActivity.this, "La connexion a échoué, vous devez être hors ligne (ou alors en présentation devant le respectable M.Banant" , Toast.LENGTH_LONG);
-                    }
-
-                    @Override
-                    public void onError(FacebookException exception) {
-                        Toast.makeText(MainActivity.this, "La connexion a échoué, vous devez être hors ligne (ou alors en présentation devant le respectable M.Banant" , Toast.LENGTH_LONG);
-                    }
-                });
+    public void createDialog(AlertDialog dialog){
+        dialog.show();
     }
 
+
+    //endregion
 }

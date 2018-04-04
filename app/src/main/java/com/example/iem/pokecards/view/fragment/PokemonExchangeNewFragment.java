@@ -1,45 +1,56 @@
-package com.example.iem.pokecards.view;
+package com.example.iem.pokecards.view.fragment;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.iem.pokecards.R;
 import com.example.iem.pokecards.manager.ManagerWS;
 import com.example.iem.pokecards.manager.Singleton;
 import com.example.iem.pokecards.modele.Pokemon;
 import com.example.iem.pokecards.presenter.PokemonExchangeNewPresenter;
-import com.example.iem.pokecards.view.adapter.PokemonExchangeAdapter;
+import com.example.iem.pokecards.view.MainActivity;
 import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 
 import java.util.ArrayList;
 
-public class PokemonExchangeNew extends AppCompatActivity {
+public class PokemonExchangeNewFragment extends BaseFragment {
     private ListView listViewPokemonWanted, listViewPokemonProposed;
     private Button createExchange;
     ArrayList<Pokemon> listItemPokemonWanted, listItemPokemonProposed;
     PokemonSimpleAdapter mSchedulePokemonWanted, mSchedulePokemonProposed;
-    final Context context = this;
-    final Activity activity = this;
+    Context context;
+    Activity activity ;
     final ManagerWS mws = Singleton.getInstance().getManagerWS();
     Pokemon pokemonProposed, pokemonWanted;
     PokemonExchangeNewPresenter pokemonExchangeNewPresenter;
+    View v;
+
+    public static PokemonExchangeNewFragment newInstance() {
+        
+        Bundle args = new Bundle();
+        
+        PokemonExchangeNewFragment fragment = new PokemonExchangeNewFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+    
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pokemon_exchange_new);
+        v = inflater.inflate(R.layout.fragment_pokemon_exchange_new, container, false);
+        
         initView();
         initListViews();
         listViewPokemonProposed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -71,17 +82,23 @@ public class PokemonExchangeNew extends AppCompatActivity {
                 }
                 pokemonExchangeNewPresenter.alertDialog(pokemonWanted, pokemonProposed, context, activity);
 
+
+
             }
         });
+        
+        return v;
 
     }
 
     private void initView(){
+        context = getActivity().getApplicationContext();
+        activity = getActivity();
         pokemonExchangeNewPresenter = Singleton.getInstance().getPokemonExchangeNewPresenter();
-        pokemonExchangeNewPresenter.setPokemonExchangeNew(this);
-        listViewPokemonWanted = (ListView) findViewById(R.id.listView_wanted_pokemon);
-        listViewPokemonProposed = (ListView) findViewById(R.id.listView_proposed_pokemon);
-        createExchange = (Button) findViewById(R.id.button_create_new_exchange);
+        pokemonExchangeNewPresenter.setPokemonExchangeNewFragment(this);
+        listViewPokemonWanted = (ListView) v.findViewById(R.id.listView_wanted_pokemon);
+        listViewPokemonProposed = (ListView) v.findViewById(R.id.listView_proposed_pokemon);
+        createExchange = (Button) v.findViewById(R.id.button_create_new_exchange);
         listItemPokemonWanted = new ArrayList<Pokemon>();
         listItemPokemonProposed = new ArrayList<Pokemon>();
         mSchedulePokemonWanted = new PokemonSimpleAdapter(listItemPokemonWanted,context);
@@ -97,6 +114,7 @@ public class PokemonExchangeNew extends AppCompatActivity {
     }
 
     public void createDialog(AlertDialog dialog){
-        dialog.show();
+        MainActivity activity = (MainActivity) getActivity();
+        activity.createDialog(dialog);
     }
 }

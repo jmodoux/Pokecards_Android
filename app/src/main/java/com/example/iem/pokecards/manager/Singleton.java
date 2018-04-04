@@ -1,15 +1,10 @@
 package com.example.iem.pokecards.manager;
 
-import com.example.iem.pokecards.modele.Pokemon;
 import com.example.iem.pokecards.modele.User;
 import com.example.iem.pokecards.presenter.BoostersActivityPresenter;
 import com.example.iem.pokecards.presenter.DetailsViewPresenter;
-import com.example.iem.pokecards.presenter.MenuActivityPresenter;
 import com.example.iem.pokecards.presenter.PokemonExchangeListPresenter;
 import com.example.iem.pokecards.presenter.PokemonExchangeNewPresenter;
-import com.example.iem.pokecards.view.PokemonExchangeList;
-
-import java.util.ArrayList;
 
 /**
  * Created by iem on 15/11/2017.
@@ -18,7 +13,6 @@ import java.util.ArrayList;
 public class Singleton {
     private ManagerWS managerWS;
     private User user;
-    private MenuActivityPresenter menuActivityPresenter;
     private PokemonExchangeListPresenter exchangeListPresenter;
     private BoostersActivityPresenter boostersActivityPresenter;
     private DetailsViewPresenter detailsViewPresenter;
@@ -34,7 +28,6 @@ public class Singleton {
     private Singleton() {
         managerWS = new ManagerWS();
         user = new User();
-        menuActivityPresenter = new MenuActivityPresenter();
         exchangeListPresenter = new PokemonExchangeListPresenter();
         boostersActivityPresenter = new BoostersActivityPresenter();
         detailsViewPresenter = new DetailsViewPresenter();
@@ -65,10 +58,6 @@ public class Singleton {
 
     public PokemonExchangeListPresenter getExchangeListPresenter() {
         return exchangeListPresenter;
-    }
-
-    public MenuActivityPresenter getMenuActivityPresenter() {
-        return menuActivityPresenter;
     }
 
     public BoostersActivityPresenter getBoostersActivityPresenter() {

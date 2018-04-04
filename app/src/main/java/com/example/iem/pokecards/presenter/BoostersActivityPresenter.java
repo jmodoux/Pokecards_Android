@@ -1,6 +1,6 @@
 package com.example.iem.pokecards.presenter;
 
-import com.example.iem.pokecards.view.PokemonBoosters;
+import com.example.iem.pokecards.view.fragment.PokemonBoosters;
 
 /**
  * Created by iem on 28/03/2018.
