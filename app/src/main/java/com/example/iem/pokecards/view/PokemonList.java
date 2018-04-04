@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -17,7 +16,7 @@ import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 
 import java.util.ArrayList;
 
-public class PokemonListe extends AppCompatActivity {
+public class PokemonList extends AppCompatActivity {
     ArrayList<Pokemon> listItem;
     PokemonSimpleAdapter mSchedule;
     final Context context = this;
@@ -35,20 +34,18 @@ public class PokemonListe extends AppCompatActivity {
         ManagerWS mws = Singleton.getInstance().getManagerWS();
 
         if(bundle.getString("Request").equals("all")){
-            Log.d("ddd", "JE SUIS UN ANE DE LA TERRE DU MILIEU");
             mws.getAll(mSchedule, listItem);
         }else{
             mws.getPokemonListByUser(Singleton.getInstance().getUser().getToken_facebook(), true, mSchedule, listItem);
         }
-
 
         maListViewPerso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> a, View v, int position, long id) {
                 Pokemon selectedPoke = (Pokemon) maListViewPerso.getItemAtPosition(position);
-                Intent intent = new Intent(PokemonListe.this, PokemonDetailsView.class);
-                intent.putExtra("Pokemon", selectedPoke);
+                Intent intent = new Intent(PokemonList.this, PokemonDetailsView.class);
+                Singleton.getInstance().getDetailsViewPresenter().setPokemonToDetail(selectedPoke);
                 startActivity(intent);
 
             }

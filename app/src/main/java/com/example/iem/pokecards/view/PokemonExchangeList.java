@@ -33,31 +33,14 @@ public class PokemonExchangeList extends AppCompatActivity {
 
         Singleton.getInstance().getExchangeListPresenter().setExchangeList(this);
 
-        refresh();
+        Singleton.getInstance().getExchangeListPresenter().refresh();
 
         maListViewPerso.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             @SuppressWarnings("unchecked")
             public void onItemClick(AdapterView<?> a, View v, final int position, long id) {
                 final Exchange selectedExchange = (Exchange) maListViewPerso.getItemAtPosition(position);
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            mws.exchangeRealised(selectedExchange.getId(), Singleton.getInstance().getUser().getToken_facebook(), activity);
-                            finish();
-                        }
-                    });
-                    builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                            dialog.cancel();
-                        }
-                    });
-                    builder.setMessage("Etes vous sur d'accepter d'échanger votre " + selectedExchange.getPokemonWanted().getName() + " contre " + selectedExchange.getPokemonProposed().getName() + " ?")
-                            .setTitle("Accepter l'échange");
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-
-
+                Singleton.getInstance().getExchangeListPresenter().alertDialog(selectedExchange, activity, context);
             }
         });
 
@@ -70,5 +53,9 @@ public class PokemonExchangeList extends AppCompatActivity {
         mSchedule = new PokemonExchangeAdapter(listItem,this.getBaseContext());
         maListViewPerso.setAdapter(mSchedule);
         mws.getAllExchange(mSchedule, listItem);
+    }
+
+    public void createDialog(AlertDialog dialog){
+        dialog.show();
     }
 }

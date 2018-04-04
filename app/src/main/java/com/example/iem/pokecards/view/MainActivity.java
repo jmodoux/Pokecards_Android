@@ -115,12 +115,12 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancel() {
-                        Toast.makeText(MainActivity.this, "Cancel", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "La connexion a échoué, vous devez être hors ligne (ou alors en présentation devant le respectable M.Banant" , Toast.LENGTH_LONG);
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        Toast.makeText(MainActivity.this, "Error" + exception, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "La connexion a échoué, vous devez être hors ligne (ou alors en présentation devant le respectable M.Banant" , Toast.LENGTH_LONG);
                     }
                 });
     }

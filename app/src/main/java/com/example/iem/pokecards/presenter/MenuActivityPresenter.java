@@ -5,10 +5,9 @@ import android.content.Intent;
 import android.widget.TextView;
 
 import com.example.iem.pokecards.manager.Singleton;
-import com.example.iem.pokecards.view.MenuActivity;
 import com.example.iem.pokecards.view.PokemonBoosters;
 import com.example.iem.pokecards.view.PokemonExchangeMenu;
-import com.example.iem.pokecards.view.PokemonListe;
+import com.example.iem.pokecards.view.PokemonList;
 
 /**
  * Created by iem on 28/03/2018.
@@ -26,13 +25,13 @@ public class MenuActivityPresenter {
     }
 
     public void goToAllPoke(Context context){
-        Intent intent = new Intent(context, PokemonListe.class);
+        Intent intent = new Intent(context, PokemonList.class);
         intent.putExtra("Request", "all");
         context.startActivity(intent);
     }
 
     public void goToUserPoke(Context context){
-        Intent intent = new Intent(context, PokemonListe.class);
+        Intent intent = new Intent(context, PokemonList.class);
         intent.putExtra("Request", "user");
         context.startActivity(intent);
     }

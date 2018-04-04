@@ -9,42 +9,58 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.iem.pokecards.R;
+import com.example.iem.pokecards.manager.Singleton;
 import com.example.iem.pokecards.modele.Pokemon;
+import com.example.iem.pokecards.presenter.DetailsViewPresenter;
 import com.squareup.picasso.Picasso;
 
 public class
 PokemonDetailsView extends AppCompatActivity {
+    TextView name, id_pokedex, generation, iteration, height, weight;
+    ImageView icone;
+    Button evolve;
+    Pokemon pokemon;
+    Context context;
+    DetailsViewPresenter detailsViewPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Context context = getApplicationContext();
+
         setContentView(R.layout.activity_pokemon_details_view);
-        Intent i = getIntent();
-        Pokemon pokemon = (Pokemon) i.getSerializableExtra("Pokemon");
-        TextView name = (TextView) findViewById(R.id.textView_Name);
-        TextView id_pokedex = (TextView) findViewById(R.id.textView_NumPokedex);
-        TextView generation = (TextView) findViewById(R.id.textView_Generation_Result);
+        detailsViewPresenter = Singleton.getInstance().getDetailsViewPresenter();
+        detailsViewPresenter.setPokemonDetailsView(this);
+        initView();
+        fillView();
+        if(Integer.parseInt(iteration.getText().toString()) < 3)
+        { evolve.setEnabled(false);}
+    }
 
-        TextView iteration = (TextView) findViewById(R.id.textView_Iteration_Result);
-        TextView height = (TextView) findViewById(R.id.textView_Height_Result);
-        TextView weight = (TextView) findViewById(R.id.textView_Weight_Result);
-        ImageView icone = (ImageView) findViewById(R.id.detail_sprite);
-        Button evolve = (Button) findViewById(R.id.buttonEvolution);
+    public void initView(){
+        pokemon = detailsViewPresenter.getPokemonToDetail();
+        context = getApplicationContext();
+        name = (TextView) findViewById(R.id.textView_Name);
+        id_pokedex = (TextView) findViewById(R.id.textView_NumPokedex);
+        generation = (TextView) findViewById(R.id.textView_Generation_Result);
 
+        iteration = (TextView) findViewById(R.id.textView_Iteration_Result);
+        height = (TextView) findViewById(R.id.textView_Height_Result);
+        weight = (TextView) findViewById(R.id.textView_Weight_Result);
+        icone = (ImageView) findViewById(R.id.detail_sprite);
+        evolve = (Button) findViewById(R.id.buttonEvolution);
+    }
+
+    public void fillView(){
         name.setText(pokemon.getName());
-        //generation.setText(pokemon.getGeneration());
         iteration.setText(pokemon.getIteration().toString());
         id_pokedex.setText(pokemon.getId().toString());
         generation.setText(pokemon.getGeneration().toString());
         height.setText(pokemon.getHeight().toString());
         weight.setText(pokemon.getWeight().toString());
         Picasso.with(context).load(pokemon.getImage()).into(icone);
-        if(Integer.parseInt(iteration.getText().toString()) < 3)
-        { evolve.setEnabled(false);}
+    }
 
-
-
-
+    public void setPokemon(Pokemon pokemon) {
+        this.pokemon = pokemon;
     }
 }

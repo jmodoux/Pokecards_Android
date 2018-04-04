@@ -41,17 +41,12 @@ public class PokemonBoosters extends AppCompatActivity {
         boostersActivityPresenter.initView();
         boostersActivityPresenter.initSpinner();
 
-        mSchedule = new PokemonSimpleAdapter(listItem,context);
-        maListViewPerso.setAdapter(mSchedule);
-        enableButtonSpinner();
-        // 1. Instantiate an AlertDialog.Builder with its constructor
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
-// 2. Chain together various setter methods to set the dialog characteristics
+
+        enableButtonSpinner();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Vous venez de debloquez ces 5 nouveaux pokémons !")
                 .setTitle("Félicitation");
-
-// 3. Get the AlertDialog from create()
         final AlertDialog dialog = builder.create();
 
         buttonSpinner.setOnClickListener(new View.OnClickListener() {
@@ -88,6 +83,8 @@ public class PokemonBoosters extends AppCompatActivity {
         context =this.getBaseContext();
         maListViewPerso = (ListView) findViewById(R.id.listView2);
         mws = new ManagerWS(listItem, mSchedule);
+        mSchedule = new PokemonSimpleAdapter(listItem,context);
+        maListViewPerso.setAdapter(mSchedule);
     }
 
     private void enableButtonSpinner(){

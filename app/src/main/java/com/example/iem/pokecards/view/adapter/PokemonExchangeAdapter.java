@@ -20,7 +20,7 @@ public class PokemonExchangeAdapter extends BaseAdapter {
     ArrayList<Exchange> listItem= new ArrayList<Exchange>();
     Context context;
     ConstraintLayout layoutItem;
-    TextView tv_pokemonWanted_id_name, tv_pokemonWanted_user_name, tv_pokemonProposed_id_name;
+    TextView tv_pokemonWanted_id_name, tv_pokemonProposed_user_name, tv_pokemonProposed_id_name;
     ImageView icone_pokemonWanted, icone_pokemonProposed;
 
     public PokemonExchangeAdapter(ArrayList<Exchange> listItem, Context context) {
@@ -62,26 +62,26 @@ public class PokemonExchangeAdapter extends BaseAdapter {
     }
 
     public ImageView getImgPokemonWanted(){
-        return (ImageView) layoutItem.findViewById(R.id.image_Pokemon_Wanted);
+        return (ImageView) layoutItem.findViewById(R.id.image_PokemonProposed);
     }
 
     public ImageView getImgPokemonProposed(){
-        return (ImageView) layoutItem.findViewById(R.id.image_Pokemon_To_Send);
+        return (ImageView) layoutItem.findViewById(R.id.image_PokemonWanted);
     }
 
     public void initView(){
         tv_pokemonWanted_id_name = (TextView) layoutItem.findViewById(R.id.pokemonWanted_id_name);
-        tv_pokemonWanted_user_name = (TextView) layoutItem.findViewById(R.id.pokemonWanted_user_name);
-        icone_pokemonWanted = (ImageView) layoutItem.findViewById(R.id.image_Pokemon_Wanted);
+        icone_pokemonWanted = (ImageView) layoutItem.findViewById(R.id.image_PokemonWanted);
 
-        tv_pokemonProposed_id_name = (TextView) layoutItem.findViewById(R.id.pokemon_ToSend_id_name);
-        icone_pokemonProposed = (ImageView) layoutItem.findViewById(R.id.image_Pokemon_To_Send);
+        tv_pokemonProposed_user_name = (TextView) layoutItem.findViewById(R.id.pokemonProposed_user_name);
+        tv_pokemonProposed_id_name = (TextView) layoutItem.findViewById(R.id.pokemonProposed_id_name);
+        icone_pokemonProposed = (ImageView) layoutItem.findViewById(R.id.image_PokemonProposed);
     }
 
     public void fillView(int position){
         tv_pokemonProposed_id_name.setText(listItem.get(position).getPokemonProposed().getName());
         tv_pokemonWanted_id_name.setText(listItem.get(position).getPokemonWanted().getName());
-        tv_pokemonWanted_user_name.setText(listItem.get(position).getUserName());
+        tv_pokemonProposed_user_name.setText(listItem.get(position).getUserName());
         Picasso.with(context).load(listItem.get(position).getPokemonWanted().getImage()).into(icone_pokemonWanted);
         Picasso.with(context).load(listItem.get(position).getPokemonProposed().getImage()).into(icone_pokemonProposed);
     }

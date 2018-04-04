@@ -1,5 +1,6 @@
 package com.example.iem.pokecards.view;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import com.example.iem.pokecards.R;
 import com.example.iem.pokecards.manager.ManagerWS;
 import com.example.iem.pokecards.manager.Singleton;
 import com.example.iem.pokecards.modele.Pokemon;
+import com.example.iem.pokecards.presenter.PokemonExchangeNewPresenter;
 import com.example.iem.pokecards.view.adapter.PokemonExchangeAdapter;
 import com.example.iem.pokecards.view.adapter.PokemonSimpleAdapter;
 
@@ -30,8 +32,10 @@ public class PokemonExchangeNew extends AppCompatActivity {
     ArrayList<Pokemon> listItemPokemonWanted, listItemPokemonProposed;
     PokemonSimpleAdapter mSchedulePokemonWanted, mSchedulePokemonProposed;
     final Context context = this;
+    final Activity activity = this;
     final ManagerWS mws = Singleton.getInstance().getManagerWS();
     Pokemon pokemonProposed, pokemonWanted;
+    PokemonExchangeNewPresenter pokemonExchangeNewPresenter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,24 +69,7 @@ public class PokemonExchangeNew extends AppCompatActivity {
                 if(pokemonWanted==null){
                     pokemonWanted= (Pokemon) listViewPokemonWanted.getItemAtPosition(0);
                 }
-                AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                builder.setPositiveButton("ok", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        mws.createNewEchange(Singleton.getInstance().getUser().getToken_facebook(), pokemonWanted.getId(),pokemonProposed.getId(), PokemonExchangeNew.this);
-
-                        finish();
-                    }
-                });
-                builder.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
-                    }
-                });
-                builder.setMessage("Etes vous sur d'accepter d'échanger votre " + pokemonProposed.getName() + " contre " + pokemonWanted.getName() + " ?")
-                        .setTitle("Proposer l'échange");
-                AlertDialog dialog = builder.create();
-                dialog.show();
-
+                pokemonExchangeNewPresenter.alertDialog(pokemonWanted, pokemonProposed, context, activity);
 
             }
         });
@@ -90,6 +77,8 @@ public class PokemonExchangeNew extends AppCompatActivity {
     }
 
     private void initView(){
+        pokemonExchangeNewPresenter = Singleton.getInstance().getPokemonExchangeNewPresenter();
+        pokemonExchangeNewPresenter.setPokemonExchangeNew(this);
         listViewPokemonWanted = (ListView) findViewById(R.id.listView_wanted_pokemon);
         listViewPokemonProposed = (ListView) findViewById(R.id.listView_proposed_pokemon);
         createExchange = (Button) findViewById(R.id.button_create_new_exchange);
@@ -105,5 +94,9 @@ public class PokemonExchangeNew extends AppCompatActivity {
     private void initListViews(){
         mws.getPokemonListByUser(Singleton.getInstance().getUser().getToken_facebook(), true, mSchedulePokemonProposed, listItemPokemonProposed);
         mws.getAll(mSchedulePokemonWanted, listItemPokemonWanted);
+    }
+
+    public void createDialog(AlertDialog dialog){
+        dialog.show();
     }
 }

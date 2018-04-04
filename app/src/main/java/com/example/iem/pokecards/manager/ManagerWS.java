@@ -123,6 +123,7 @@ public class ManagerWS{
             @Override
             public void onFailure(Call<User> call, Throwable t) {
                 Log.d("Error", "Fail + " + t.getMessage());
+                Toast.makeText(context, "La connexion a échoué, vous devez être hors ligne (ou alors en présentation devant le respectable M.Banant" , Toast.LENGTH_LONG);
             }
         });
     }

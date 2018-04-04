@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.iem.pokecards">
-
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -52,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.MainActivity" />
-        <activity android:name=".view.PokemonListe" />
+        <activity android:name=".view.PokemonList" />
         <activity android:name=".view.PokemonDetailsView" />
         <activity android:name=".view.MenuActivity" />
         <activity android:name=".view.Activitytweet" />
