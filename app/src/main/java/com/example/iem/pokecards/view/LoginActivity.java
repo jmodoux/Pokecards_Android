@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
 
                                         } catch (JSONException e) {
                                             e.printStackTrace();
+                                            Toast.makeText(getApplicationContext(), "La connexion a échoué, vous devez être hors ligne (ou alors en présentation devant le respectable M.Banant" , Toast.LENGTH_LONG);
                                         }
 
                                     }

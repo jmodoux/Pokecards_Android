@@ -39,7 +39,7 @@ PokemonDetailsFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        v = inflater.inflate(R.layout.fragment_pokemon_exchange_list, container, false);
+        v = inflater.inflate(R.layout.fragment_pokemon_details_view, container, false);
         detailsViewPresenter = Singleton.getInstance().getDetailsViewPresenter();
         detailsViewPresenter.setPokemonDetailsView(this);
         initView();
